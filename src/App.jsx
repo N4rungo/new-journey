@@ -59,9 +59,10 @@ function VillageMap() {
       : { opacity: [0.3, 1, 0.3], scale: [0.9, 1, 0.9], transition: { duration: 3, repeat: Infinity } }
   }
 
-  const spriteUrl = (window.devicePixelRatio || 1) > 1
-   ? base + 'sprites/ui-32.png'
-   : base + 'sprites/ui-16.png';
+  const spriteUrl = base + 'sprites/ui-32.png';
+  //const spriteUrl = (window.devicePixelRatio || 1) > 1
+  // ? base + 'sprites/ui-32.png'
+  // : base + 'sprites/ui-16.png';
 
   const haloUrl = (window.devicePixelRatio || 1) > 1
    ? base + 'sprites/halo-32.png'
