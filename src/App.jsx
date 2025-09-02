@@ -70,8 +70,8 @@ function VillageMap() {
       <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-200 dark:from-stone-800 dark:via-stone-900 dark:to-stone-800" aria-hidden />
       <div className="pointer-events-none absolute inset-0 ring-1 ring-black/10 rounded-2xl" aria-hidden />
 	<img
-         src="/map/village@1x.png"
-         srcSet="/map/village@2x.png 2x, /map/village@1x.png 1x"
+         src="/public/map/village@1x.png"
+         srcSet="/public/map/village@2x.png 2x, /public/map/village@1x.png 1x"
          alt=""
          className="absolute inset-0 w-full h-full object-cover pixelated"
          aria-hidden
