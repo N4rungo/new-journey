@@ -33,7 +33,30 @@ const useHashRoute = () => {
   return [route, (path) => (window.location.hash = path.startsWith('#') ? path : `#${path.replace(/^#?/, '')}`)]
 }
 
+function useKey(key, fn) {
+  React.useEffect(() => {
+    const on = (e) => (e.key.toLowerCase() === key.toLowerCase() ? fn(e) : null);
+    window.addEventListener('keydown', on);
+    return () => window.removeEventListener('keydown', on);
+  }, [key, fn]);
+}
+
 function VillageMap() {
+  const [showGrid, setShowGrid] = React.useState(false);
+  useKey('g', () => setShowGrid(s => !s));
+  {/* Overlay grille 16px au-dessus de l'image */}
+  {showGrid && (
+    <div
+      className="absolute inset-0 pointer-events-none"
+      style={{
+        backgroundImage:
+          'linear-gradient(to right, rgba(0,0,0,.15) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,.15) 1px, transparent 1px)',
+        backgroundSize: '16px 16px',
+      }}
+    />
+  )}
+
+
   const prefersReducedMotion = usePrefersReducedMotion()
   const ringAnim = {
     initial: { opacity: 0, scale: 0.8 },
@@ -46,27 +69,19 @@ function VillageMap() {
     <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800">
       <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-200 dark:from-stone-800 dark:via-stone-900 dark:to-stone-800" aria-hidden />
       <div className="pointer-events-none absolute inset-0 ring-1 ring-black/10 rounded-2xl" aria-hidden />
-      <svg className="absolute inset-0 w-full h-full" role="img" aria-label="Carte du village — sélectionnez un bâtiment pour en savoir plus" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <radialGradient id="sun" cx="15%" cy="15%" r="60%"><stop offset="0%" stopColor="#fff7d6" /><stop offset="100%" stopColor="#f1e3b0" /></radialGradient>
-          <linearGradient id="river" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stopColor="#8ecae6" stopOpacity="0.35" /><stop offset="100%" stopColor="#219ebc" stopOpacity="0.35" /></linearGradient>
-          <pattern id="grain" patternUnits="userSpaceOnUse" width="4" height="4"><circle cx="1" cy="1" r="0.15" fill="#000" opacity="0.06" /></pattern>
-        </defs>
-        <rect x="0" y="0" width="100" height="100" fill="url(#sun)" />
-        <path d="M-5 30 C 20 40, 40 25, 60 35 S 120 45, 110 60 L 110 70 L -5 70 Z" fill="url(#river)" />
-        <rect x="0" y="0" width="100" height="100" fill="url(#grain)" opacity="0.3" />
-        {BUILDINGS.map((b) => (
-          <g key={b.id} transform={`translate(${b.x}, ${b.y})`}>
-            <circle cx="0" cy="0" r="6" fill="#000" opacity="0" />
-            <text x="0" y="1" textAnchor="middle" fontSize="6" aria-hidden>{b.emoji}</text>
-          </g>
-        ))}
-      </svg>
+	<img
+         src="/map/village@1x.png"
+         srcSet="/map/village@2x.png 2x, /map/village@1x.png 1x"
+         alt=""
+         className="absolute inset-0 w-full h-full object-cover pixelated"
+         aria-hidden
+       />
       <ul className="absolute inset-0 m-0 list-none p-0">
         {BUILDINGS.map((b) => (
           <li key={b.id} style={{ position: 'absolute', left: `${b.x}%`, top: `${b.y}%`, transform: 'translate(-50%, -50%)' }}>
             <a href={b.href} className="group relative block rounded-xl outline-none focus-visible:ring-4 ring-amber-500/50" aria-label={b.label} title={b.label}>
-              <motion.span {...ringAnim} className="absolute -inset-4 rounded-2xl shadow-[0_0_0_2px_rgba(0,0,0,0.06)] group-hover:shadow-[0_0_0_6px_rgba(245,158,11,0.35)]" />
+              /*<motion.span {...ringAnim} className="absolute -inset-4 rounded-2xl shadow-[0_0_0_2px_rgba(0,0,0,0.06)] group-hover:shadow-[0_0_0_6px_rgba(245,158,11,0.35)]" />*/
+	      <span className="absolute -inset-4" aria-hidden /> {/* zone cliquable ≥44px */}
               <span className="text-3xl select-none drop-shadow-sm" aria-hidden>{b.emoji}</span>
             </a>
           </li>
@@ -255,7 +270,7 @@ export default function App() {
       case '/': return (
         <main className="max-w-6xl mx-auto px-4 py-6">
           <div className="mb-6">
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">Bienvenue au village</h1>
+	    <h1 className="fancy-title text-3xl md:text-4xl font-extrabold tracking-tight">Bienvenue au village</h1>
             <p className="text-stone-600 dark:text-stone-300 mt-1">Cliquez sur un bâtiment pour découvrir mon profil (contenus Markdown).</p>
           </div>
           <VillageMap />
