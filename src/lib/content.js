@@ -10,8 +10,13 @@ function parseMarkdownRaw(raw) {
   return { frontmatter, html }
 }
 
-/** Projects collection (chargée à build-time) */
-const projectsMap = import.meta.glob('/content/projects/*.md', { as: 'raw', eager: true })
+// ✅ Collections chargées à build-time (littéraux + API sans `as`)
+const projectsMap = import.meta.glob('/content/projects/*.md', {
+  eager: true,
+  query: '?raw',
+  import: 'default',
+})
+
 export const projects = Object.entries(projectsMap)
   .map(([path, raw]) => {
     const { frontmatter, html } = parseMarkdownRaw(raw)
@@ -25,16 +30,19 @@ export const projects = Object.entries(projectsMap)
     return (a.frontmatter?.title || '').localeCompare(b.frontmatter?.title || '')
   })
 
-/** Pages simples (CV, training, hobbies) */
-const pagesMap = import.meta.glob('/content/pages/*.md', { as: 'raw', eager: true })
+const pagesMap = import.meta.glob('/content/pages/*.md', {
+  eager: true,
+  query: '?raw',
+  import: 'default',
+})
+
 const parsedPages = Object.fromEntries(
   Object.entries(pagesMap).map(([path, raw]) => {
-    const slug = path.split('/').pop().replace(/\.md$/, '') // ex: 'cv'
+    const slug = path.split('/').pop().replace(/\.md$/, '')
     return [slug, parseMarkdownRaw(raw)]
   })
 )
 
-/** Récupérer une page par slug (ex: 'cv', 'training', 'hobbies') */
 export function getPage(slug) {
   return parsedPages[slug] || { frontmatter: {}, html: '<p>Page non trouvée.</p>' }
 }
