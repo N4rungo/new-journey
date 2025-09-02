@@ -4,11 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { projects, getPage } from './lib/content.js'
 
 const BUILDINGS = [
-  { id: 'chateau',  label: 'Château (Projets)',            x: 62, y: 24, href: '#/chateau',  icon: 'castle',   desc: 'Mes projets personnels…' },
-  { id: 'caserne',  label: "Caserne d'entraînement",       x: 34, y: 66, href: '#/caserne',  icon: 'barracks', desc: 'Formations, compétences…' },
-  { id: 'auberge',  label: 'Auberge (Passe-temps)',        x: 22, y: 44, href: '#/auberge',  icon: 'tavern',   desc: 'Jeux vidéo & société…' },
-  { id: 'place',    label: 'Place du village (Index)',     x: 50, y: 58, href: '#/place',    icon: 'plaza',    desc: 'Index accessible.' },
-  { id: 'cv',       label: 'Salle des archives (CV)',      x: 78, y: 72, href: '#/cv',       icon: 'archives', desc: 'CV imprimable.' },
+  { id: 'chateau',  label: 'Château (Projets)',            x: 23, y: 36, href: '#/chateau',  icon: 'castle',   desc: 'Mes projets personnels…' },
+  { id: 'caserne',  label: "Caserne d'entraînement",       x: 68, y: 55, href: '#/caserne',  icon: 'barracks', desc: 'Formations, compétences…' },
+  { id: 'auberge',  label: 'Auberge (Passe-temps)',        x: 66, y: 30, href: '#/auberge',  icon: 'tavern',   desc: 'Jeux vidéo & société…' },
+  { id: 'place',    label: 'Place du village (Index)',     x: 40, y: 30, href: '#/place',    icon: 'plaza',    desc: 'Index accessible.' },
+  { id: 'cv',       label: 'Salle des archives (CV)',      x: 50, y: 20, href: '#/cv',       icon: 'archives', desc: 'CV imprimable.' },
   // { id: 'biblio', label: 'Bibliothèque', x: 58, y: 60, href: '#/biblio', icon: 'book', desc: 'Lectures, notes.' },
 ];
 
@@ -49,7 +49,7 @@ function VillageMap() {
   const [showGrid, setShowGrid] = React.useState(false);
   useKey('g', () => setShowGrid(s => !s));
 
-  const base = import.meta.env.BASE_URL // utile pour GitHub Pages (cf. point 3)
+  const base = import.meta.env.BASE_URL
 
   const prefersReducedMotion = usePrefersReducedMotion()
   const ringAnim = {
@@ -60,21 +60,25 @@ function VillageMap() {
   }
 
   const spriteUrl = (window.devicePixelRatio || 1) > 1
-    ? base + 'sprites/ui-32.png'
-    : base + 'sprites/ui-16.png';
+   ? base + 'sprites/ui-32.png'
+   : base + 'sprites/ui-16.png';
+
+  const haloUrl = (window.devicePixelRatio || 1) > 1
+   ? base + 'sprites/halo-32.png'
+   : base + 'sprites/halo-16.png';
 
   return (
-    <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800">
+     <div className="relative w-full aspect-[1/1] rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800">
       <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-200 dark:from-stone-800 dark:via-stone-900 dark:to-stone-800" aria-hidden />
       <div className="pointer-events-none absolute inset-0 ring-1 ring-black/10 rounded-2xl" aria-hidden />
-	<img
-         src={base + 'map/village_v2@1x.png'}
-         srcSet={`${base}map/village_v2@1x.png 1x, ${base}map/village_v2@2x.png 2x`}
-         alt=""
-         className="absolute inset-0 w-full h-full object-cover pixelated"
-         aria-hidden
-         onError={(e) => { console.warn('Image fond introuvable:', e.currentTarget.src) }}
-        />
+
+	    <img
+	      src={base + 'map/village02.png'}
+	      srcSet={`${base}map/village02.png 1x, ${base}map/village02.png 2x`}
+	      alt=""
+	      className="absolute inset-0 w-full h-full object-cover pixelated"
+	      aria-hidden
+	    />
 
 	{showGrid && (
           <div
@@ -92,28 +96,31 @@ function VillageMap() {
 
 	<ul className="absolute inset-0 m-0 list-none p-0">
 	  {BUILDINGS.map((b) => (
-	    <li key={b.id} style={{ position: 'absolute', left: `${b.x}%`, top: `${b.y}%`, transform: 'translate(-50%, -50%)' }}>
+	    <li 
+		key={b.id} 
+		style={{ position: 'absolute', left: `${b.x}%`, top: `${b.y}%`, transform: 'translate(-50%, -50%)' }}>
 	      <a
 	        href={b.href}
 	        className="group relative block rounded-xl outline-none focus-visible:ring-4 ring-amber-500/50"
 	        aria-label={b.label}
-	        title={b.label}
+		title={b.label} 
+		style={{ width: 56, height: 56 }}
 	      >
-	        {/* halo / hitbox */}
-	        <span className="absolute -inset-4 shadow-[0_0_0_2px_rgba(0,0,0,0.4)] group-hover:shadow-[0_0_0_4px_rgba(245,158,11,0.35)]" aria-hidden />
-	
-	        {/* sprite pixel */}
-	        <span
-	          className={`ico ico-${b.icon} pixelated block`}
-	          style={{
-	            backgroundImage: `url(${spriteUrl})`,
-	            // Option: scale up a bit for visibility:
-	            transform: 'scale(2.0)',
-	            transformOrigin: 'center',
-	            display: 'inline-block'
-	          }}
-	          aria-hidden
-	        />
+
+		<span 
+			className="halo" 
+			style={{ 
+				backgroundImage:`url(${haloUrl})`,
+			}} 
+			aria-hidden 
+		/>	
+		<span 
+			className={`icon-pixel ico ico-${b.icon}`} 
+			style={{ 
+				backgroundImage:`url(${spriteUrl})`,
+			}} 
+			aria-hidden 
+		/>
 	      </a>
 	    </li>
 	  ))}
