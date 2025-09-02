@@ -1,1 +1,1 @@
-Have a look at... me
+Take a look at... me

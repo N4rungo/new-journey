@@ -26,17 +26,15 @@ jobs:
           node-version: 20
           cache: 'npm'
       - name: Install deps
-        run: npm ci
+        run: npm ci || npm install
       - name: Build
         env:
-          # This sets the correct base path for project pages like /<repo-name>/
           VITE_BASE: "/${{ github.event.repository.name }}/"
         run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
