@@ -35,27 +35,19 @@ const useHashRoute = () => {
 
 function useKey(key, fn) {
   React.useEffect(() => {
-    const on = (e) => (e.key.toLowerCase() === key.toLowerCase() ? fn(e) : null);
-    window.addEventListener('keydown', on);
-    return () => window.removeEventListener('keydown', on);
-  }, [key, fn]);
+    const on = (e) => {
+      if (e.key.toLowerCase() === key.toLowerCase()) fn(e)
+    }
+    window.addEventListener('keydown', on)
+    return () => window.removeEventListener('keydown', on)
+  }, [key, fn])
 }
 
 function VillageMap() {
   const [showGrid, setShowGrid] = React.useState(false);
   useKey('g', () => setShowGrid(s => !s));
-  {/* Overlay grille 16px au-dessus de l'image */}
-  {showGrid && (
-    <div
-      className="absolute inset-0 pointer-events-none"
-      style={{
-        backgroundImage:
-          'linear-gradient(to right, rgba(0,0,0,.15) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,.15) 1px, transparent 1px)',
-        backgroundSize: '16px 16px',
-      }}
-    />
-  )}
 
+  const base = import.meta.env.BASE_URL // utile pour GitHub Pages (cf. point 3)
 
   const prefersReducedMotion = usePrefersReducedMotion()
   const ringAnim = {
@@ -70,12 +62,28 @@ function VillageMap() {
       <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-200 dark:from-stone-800 dark:via-stone-900 dark:to-stone-800" aria-hidden />
       <div className="pointer-events-none absolute inset-0 ring-1 ring-black/10 rounded-2xl" aria-hidden />
 	<img
-         src="/public/map/village@1x.png"
-         srcSet="/public/map/village@2x.png 2x, /public/map/village@1x.png 1x"
+         src={base + 'map/village_hd@1x.png'}
+         srcSet={`${base}map/village_hd@1x.png 1x, ${base}map/village_hd@2x.png 2x`}
          alt=""
          className="absolute inset-0 w-full h-full object-cover pixelated"
          aria-hidden
-       />
+         onError={(e) => { console.warn('Image fond introuvable:', e.currentTarget.src) }}
+        />
+
+	{showGrid && (
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              zIndex: 5,
+              backgroundImage:
+                'repeating-linear-gradient(0deg, rgba(0,0,0,.25), rgba(0,0,0,.25) 1px, transparent 1px, transparent 16px), ' +
+                'repeating-linear-gradient(90deg, rgba(0,0,0,.25), rgba(0,0,0,.25) 1px, transparent 1px, transparent 16px)',
+              backgroundSize: '16px 16px',
+            }}
+            aria-hidden
+          />
+        )}
+
       <ul className="absolute inset-0 m-0 list-none p-0">
         {BUILDINGS.map((b) => (
           <li key={b.id} style={{ position: 'absolute', left: `${b.x}%`, top: `${b.y}%`, transform: 'translate(-50%, -50%)' }}>
