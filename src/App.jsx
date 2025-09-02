@@ -4,12 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { projects, getPage } from './lib/content.js'
 
 const BUILDINGS = [
-  { id: 'chateau', label: 'Château (Projets)', x: 62, y: 28, href: '#/chateau', emoji: '🏰', desc: 'Mes projets personnels et professionnels.' },
-  { id: 'caserne', label: "Caserne d'entraînement (Formations)", x: 34, y: 64, href: '#/caserne', emoji: '⚔️', desc: 'Formations, certifications et compétences clés.' },
-  { id: 'auberge', label: 'Auberge (Passe-temps)', x: 20, y: 42, href: '#/auberge', emoji: '🍻', desc: 'Jeux vidéo, jeux de société et autres loisirs.' },
-  { id: 'place', label: 'Place du village (Index)', x: 50, y: 52, href: '#/place', emoji: '🧭', desc: 'Index accessible de tous les lieux.' },
-  { id: 'cv', label: 'Salle des archives (CV)', x: 78, y: 70, href: '#/cv', emoji: '📜', desc: 'CV imprimable.' }
-]
+  { id: 'chateau',  label: 'Château (Projets)',            x: 62, y: 24, href: '#/chateau',  icon: 'castle',   desc: 'Mes projets personnels…' },
+  { id: 'caserne',  label: "Caserne d'entraînement",       x: 34, y: 66, href: '#/caserne',  icon: 'barracks', desc: 'Formations, compétences…' },
+  { id: 'auberge',  label: 'Auberge (Passe-temps)',        x: 22, y: 44, href: '#/auberge',  icon: 'tavern',   desc: 'Jeux vidéo & société…' },
+  { id: 'place',    label: 'Place du village (Index)',     x: 50, y: 58, href: '#/place',    icon: 'plaza',    desc: 'Index accessible.' },
+  { id: 'cv',       label: 'Salle des archives (CV)',      x: 78, y: 72, href: '#/cv',       icon: 'archives', desc: 'CV imprimable.' },
+  // { id: 'biblio', label: 'Bibliothèque', x: 58, y: 60, href: '#/biblio', icon: 'book', desc: 'Lectures, notes.' },
+];
+
 
 const usePrefersReducedMotion = () => {
   const [reduced, setReduced] = useState(false)
@@ -57,13 +59,17 @@ function VillageMap() {
       : { opacity: [0.3, 1, 0.3], scale: [0.9, 1, 0.9], transition: { duration: 3, repeat: Infinity } }
   }
 
+  const spriteUrl = (window.devicePixelRatio || 1) > 1
+    ? base + 'sprites/ui-32.png'
+    : base + 'sprites/ui-16.png';
+
   return (
     <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800">
       <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-200 dark:from-stone-800 dark:via-stone-900 dark:to-stone-800" aria-hidden />
       <div className="pointer-events-none absolute inset-0 ring-1 ring-black/10 rounded-2xl" aria-hidden />
 	<img
-         src={base + 'map/village_hd@1x.png'}
-         srcSet={`${base}map/village_hd@1x.png 1x, ${base}map/village_hd@2x.png 2x`}
+         src={base + 'map/village_v2@1x.png'}
+         srcSet={`${base}map/village_v2@1x.png 1x, ${base}map/village_v2@2x.png 2x`}
          alt=""
          className="absolute inset-0 w-full h-full object-cover pixelated"
          aria-hidden
@@ -84,17 +90,35 @@ function VillageMap() {
           />
         )}
 
-      <ul className="absolute inset-0 m-0 list-none p-0">
-        {BUILDINGS.map((b) => (
-          <li key={b.id} style={{ position: 'absolute', left: `${b.x}%`, top: `${b.y}%`, transform: 'translate(-50%, -50%)' }}>
-            <a href={b.href} className="group relative block rounded-xl outline-none focus-visible:ring-4 ring-amber-500/50" aria-label={b.label} title={b.label}>
-              /*<motion.span {...ringAnim} className="absolute -inset-4 rounded-2xl shadow-[0_0_0_2px_rgba(0,0,0,0.06)] group-hover:shadow-[0_0_0_6px_rgba(245,158,11,0.35)]" />*/
-	      <span className="absolute -inset-4" aria-hidden /> {/* zone cliquable ≥44px */}
-              <span className="text-3xl select-none drop-shadow-sm" aria-hidden>{b.emoji}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
+	<ul className="absolute inset-0 m-0 list-none p-0">
+	  {BUILDINGS.map((b) => (
+	    <li key={b.id} style={{ position: 'absolute', left: `${b.x}%`, top: `${b.y}%`, transform: 'translate(-50%, -50%)' }}>
+	      <a
+	        href={b.href}
+	        className="group relative block rounded-xl outline-none focus-visible:ring-4 ring-amber-500/50"
+	        aria-label={b.label}
+	        title={b.label}
+	      >
+	        {/* halo / hitbox */}
+	        <span className="absolute -inset-4 shadow-[0_0_0_2px_rgba(0,0,0,0.4)] group-hover:shadow-[0_0_0_4px_rgba(245,158,11,0.35)]" aria-hidden />
+	
+	        {/* sprite pixel */}
+	        <span
+	          className={`ico ico-${b.icon} pixelated block`}
+	          style={{
+	            backgroundImage: `url(${spriteUrl})`,
+	            // Option: scale up a bit for visibility:
+	            transform: 'scale(2.0)',
+	            transformOrigin: 'center',
+	            display: 'inline-block'
+	          }}
+	          aria-hidden
+	        />
+	      </a>
+	    </li>
+	  ))}
+	</ul>
+
       <div className="absolute left-3 bottom-3 bg-white/70 dark:bg-stone-900/70 backdrop-blur-md rounded-xl px-3 py-2 text-sm shadow">
         <span className="font-medium">Conseil :</span> survolez ou touchez un bâtiment pour ouvrir sa page.
       </div>
@@ -105,7 +129,7 @@ function VillageMap() {
 function PageShell({ title, subtitle, children }) {
   return (
     <div className="max-w-5xl mx-auto px-4 py-6">
-      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">{title}</h1>
+      <h1 className="fancy-title text-3xl md:text-4xl font-extrabold tracking-tight">{title}</h1>
       {subtitle && <p className="text-stone-600 dark:text-stone-300 mt-1">{subtitle}</p>}
       <div className="mt-6 prose prose-stone dark:prose-invert max-w-none">{children}</div>
     </div>
