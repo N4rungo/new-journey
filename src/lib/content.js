@@ -1,16 +1,27 @@
 // src/lib/content.js
-import matter from 'gray-matter'
+import YAML from 'yaml'
 import { marked } from 'marked'
 
 marked.setOptions({ gfm: true, breaks: false })
 
-function parseMarkdownRaw(raw) {
-  const { data: frontmatter, content } = matter(raw)
-  const html = marked.parse(content)
+// Parse front-matter YAML (--- ... ---) + Markdown -> HTML
+function parseFrontMatter(raw) {
+  const m = raw.match(/^---\s*\n([\s\S]*?)\n---\s*\n?/) // front-matter au début du fichier
+  let frontmatter = {}
+  let body = raw
+  if (m) {
+    try {
+      frontmatter = YAML.parse(m[1]) || {}
+    } catch {
+      frontmatter = {}
+    }
+    body = raw.slice(m[0].length)
+  }
+  const html = marked.parse(body)
   return { frontmatter, html }
 }
 
-// ✅ Collections chargées à build-time (littéraux + API sans `as`)
+// ✅ Collections chargées à build-time (arguments littéraux)
 const projectsMap = import.meta.glob('/content/projects/*.md', {
   eager: true,
   query: '?raw',
@@ -19,7 +30,7 @@ const projectsMap = import.meta.glob('/content/projects/*.md', {
 
 export const projects = Object.entries(projectsMap)
   .map(([path, raw]) => {
-    const { frontmatter, html } = parseMarkdownRaw(raw)
+    const { frontmatter, html } = parseFrontMatter(raw)
     const slug = path.split('/').pop().replace(/\.md$/, '')
     return { slug, frontmatter, html }
   })
@@ -38,8 +49,8 @@ const pagesMap = import.meta.glob('/content/pages/*.md', {
 
 const parsedPages = Object.fromEntries(
   Object.entries(pagesMap).map(([path, raw]) => {
-    const slug = path.split('/').pop().replace(/\.md$/, '')
-    return [slug, parseMarkdownRaw(raw)]
+    const slug = path.split('/').pop().replace(/\.md$/, '') // 'cv', 'training', 'hobbies'
+    return [slug, parseFrontMatter(raw)]
   })
 )
 
