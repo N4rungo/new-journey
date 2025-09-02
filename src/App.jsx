@@ -1,6 +1,7 @@
+// src/App.jsx
 import React, { useEffect, useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { loadCollection, loadPage } from './lib/content.js'
+import { projects, getPage } from './lib/content.js'
 
 const BUILDINGS = [
   { id: 'chateau', label: 'Château (Projets)', x: 62, y: 28, href: '#/chateau', emoji: '🏰', desc: 'Mes projets personnels et professionnels.' },
@@ -36,9 +37,9 @@ function VillageMap() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const ringAnim = {
     initial: { opacity: 0, scale: 0.8 },
-    animate: prefersReducedMotion ?
-      { opacity: 1, scale: 1, transition: { duration: 0 } } :
-      { opacity: [0.3, 1, 0.3], scale: [0.9, 1, 0.9], transition: { duration: 3, repeat: Infinity } }
+    animate: prefersReducedMotion
+      ? { opacity: 1, scale: 1, transition: { duration: 0 } }
+      : { opacity: [0.3, 1, 0.3], scale: [0.9, 1, 0.9], transition: { duration: 3, repeat: Infinity } }
   }
 
   return (
@@ -109,7 +110,6 @@ function PlacePage() {
 }
 
 function ProjectsPage() {
-  const projects = loadCollection('/content/projects/*.md')
   return (
     <PageShell title="Château" subtitle="Projets (contenu Markdown)">
       <div className="grid md:grid-cols-2 gap-4 !prose-none">
@@ -123,7 +123,7 @@ function ProjectsPage() {
               ))}
             </div>
             <div className="text-sm mt-4" dangerouslySetInnerHTML={{ __html: p.html }} />
-            {(p.frontmatter?.links) && (
+            {p.frontmatter?.links && (
               <div className="mt-3 text-sm flex gap-4">
                 {p.frontmatter.links.demo && <a className="underline" href={p.frontmatter.links.demo} target="_blank" rel="noreferrer">Démo</a>}
                 {p.frontmatter.links.github && <a className="underline" href={p.frontmatter.links.github} target="_blank" rel="noreferrer">GitHub</a>}
@@ -136,8 +136,8 @@ function ProjectsPage() {
   )
 }
 
-function MarkdownPage({ title, fileGlob }) {
-  const page = loadPage(fileGlob)
+function MarkdownPage({ title, slug }) {
+  const page = getPage(slug)
   return (
     <PageShell title={title}>
       <div dangerouslySetInnerHTML={{ __html: page.html }} />
@@ -145,9 +145,9 @@ function MarkdownPage({ title, fileGlob }) {
   )
 }
 
-function CVPage() { return <MarkdownPage title="Salle des archives" fileGlob={'/content/pages/cv.md'} /> }
-function TrainingPage() { return <MarkdownPage title="Caserne d\'entraînement" fileGlob={'/content/pages/training.md'} /> }
-function HobbiesPage() { return <MarkdownPage title="Auberge" fileGlob={'/content/pages/hobbies.md'} /> }
+function CVPage() { return <MarkdownPage title="Salle des archives" slug="cv" /> }
+function TrainingPage() { return <MarkdownPage title="Caserne d'entraînement" slug="training" /> }
+function HobbiesPage() { return <MarkdownPage title="Auberge" slug="hobbies" /> }
 
 function TopNav() {
   return (
