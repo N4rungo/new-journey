@@ -5,7 +5,7 @@ import { projects, getPage } from './lib/content.js'
 
 const BUILDINGS = [
   { id: 'chateau',  label: 'Château (Projets)',            x: 23, y: 36, href: '#/chateau',  icon: 'castle',   desc: 'Mes projets personnels…' },
-  { id: 'caserne',  label: "Caserne d'entraînement",       x: 68, y: 55, href: '#/caserne',  icon: 'barracks', desc: 'Formations, compétences…' },
+  { id: 'caserne',  label: "Caserne (Formations)",       x: 68, y: 55, href: '#/caserne',  icon: 'barracks', desc: 'Formations, compétences…' },
   { id: 'auberge',  label: 'Auberge (Passe-temps)',        x: 66, y: 30, href: '#/auberge',  icon: 'tavern',   desc: 'Jeux vidéo & société…' },
   { id: 'place',    label: 'Place du village (Index)',     x: 40, y: 30, href: '#/place',    icon: 'plaza',    desc: 'Index accessible.' },
   { id: 'cv',       label: 'Salle des archives (CV)',      x: 50, y: 20, href: '#/cv',       icon: 'archives', desc: 'CV imprimable.' },
