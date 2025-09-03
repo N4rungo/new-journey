@@ -128,7 +128,7 @@ function VillageMap() {
 	</ul>
 
       <div className="absolute left-3 bottom-3 bg-white/70 dark:bg-stone-900/70 backdrop-blur-md rounded-xl px-3 py-2 text-sm shadow">
-        <span className="font-medium">Conseil :</span> survolez ou touchez un bâtiment pour ouvrir sa page.
+        <span className="font-medium">Conseil :</span> survolez et cliquez sur un bâtiment pour obtenir des informations.
       </div>
     </div>
   )
@@ -278,7 +278,7 @@ function TopNav() {
   return (
     <header className="sticky top-0 z-10 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-stone-900/60 bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800">
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center gap-3">
-        <a href="#/" className="font-black tracking-tight text-lg">🏞️ Portfolio Village</a>
+        <a href="#/" className="font-black tracking-tight text-lg">🏞️ A New Journey</a>
         <nav className="ml-auto flex items-center gap-3 text-sm">
           <a className="hover:underline" href="#/place">Place</a>
           <a className="hover:underline" href="#/chateau">Château</a>
@@ -310,8 +310,8 @@ export default function App() {
       case '/': return (
         <main className="max-w-6xl mx-auto px-4 py-6">
           <div className="mb-6">
-	    <h1 className="fancy-title text-3xl md:text-4xl font-extrabold tracking-tight">Bienvenue au village</h1>
-            <p className="text-stone-600 dark:text-stone-300 mt-1">Cliquez sur un bâtiment pour découvrir mon profil (contenus Markdown).</p>
+	    <h1 className="fancy-title text-3xl md:text-4xl font-extrabold tracking-tight">Bienvenue dans mon village</h1>
+            <p className="text-stone-600 dark:text-stone-300 mt-1">Cliquez sur un bâtiment pour en découvrir plus sur moi.</p>
           </div>
           <VillageMap />
         </main>
