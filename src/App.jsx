@@ -79,7 +79,6 @@ function VillageMap() {
 	      alt=""
 	      className="absolute inset-0 w-full h-full object-cover pixelated"
 	      aria-hidden
-        style={{ width: 56, height: 56 }}
 	    />
 
 	{showGrid && (
