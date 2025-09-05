@@ -4,11 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { projects, getPage } from './lib/content.js'
 
 const BUILDINGS = [
-  { id: 'chateau',  label: 'Château (Projets)',            x: 23, y: 36, href: '#/chateau',  icon: 'castle',   desc: 'Mes projets personnels…' },
-  { id: 'caserne',  label: "Caserne (Formations)",       x: 68, y: 55, href: '#/caserne',  icon: 'barracks', desc: 'Formations, compétences…' },
-  { id: 'auberge',  label: 'Auberge (Passe-temps)',        x: 66, y: 30, href: '#/auberge',  icon: 'tavern',   desc: 'Jeux vidéo & société…' },
-  { id: 'place',    label: 'Place du village (Index)',     x: 40, y: 30, href: '#/place',    icon: 'plaza',    desc: 'Index accessible.' },
-  { id: 'cv',       label: 'Salle des archives (CV)',      x: 50, y: 20, href: '#/cv',       icon: 'archives', desc: 'CV imprimable.' },
+  { id: 'chateau',  label: 'Château (Projets)',            x: 25, y: 38, href: '#/chateau',  icon: 'castle',   desc: 'Mes projets personnels…' },
+  { id: 'caserne',  label: "Caserne (Formations)",       x: 60, y: 60, href: '#/caserne',  icon: 'barracks', desc: 'Formations, compétences…' },
+  { id: 'auberge',  label: 'Auberge (Passe-temps)',        x: 55, y: 30, href: '#/auberge',  icon: 'tavern',   desc: 'Jeux vidéo & société…' },
+  { id: 'place',    label: 'Place du village (Index)',     x: 45, y: 35, href: '#/place',    icon: 'plaza',    desc: 'Index accessible.' },
+  { id: 'cv',       label: 'Salle des archives (CV)',      x: 40, y: 22, href: '#/cv',       icon: 'archives', desc: 'CV imprimable.' },
   // { id: 'biblio', label: 'Bibliothèque', x: 58, y: 60, href: '#/biblio', icon: 'book', desc: 'Lectures, notes.' },
 ];
 
@@ -87,50 +87,31 @@ function useKey(key, fn) {
 }
 
 function VillageMap() {
-  // État du drawer et de la grille
-  const [drawerOpen, setDrawerOpen] = React.useState(false)
-  const [showGrid, setShowGrid] = React.useState(false)
+  // -- état local -------------------------------------------------------------
+  const [showGrid, setShowGrid] = React.useState(false)   // toggle grille (touche "g")
   useKey('g', () => setShowGrid((s) => !s))
 
-  // Base URL (GitHub Pages)
+  // -- chemins d'assets (HD seulement) ---------------------------------------
   const base = import.meta.env.BASE_URL
-
-  // Fond 16:9 (ajoute bien les deux fichiers dans public/map/)
-  const bg1x = base + 'map/village16x9@1x.png'
-  const bg2x = base + 'map/village16x9@2x.png'
-
-  // Sprites (icônes + halo) selon DPR
-  const spriteUrl = (window.devicePixelRatio || 1) > 1
-    ? base + 'sprites/ui-32.png'
-    : base + 'sprites/ui-16.png'
-  const haloUrl = (window.devicePixelRatio || 1) > 1
-    ? base + 'sprites/halo-32.png'
-    : base + 'sprites/halo-16.png'
+  const bgHD   = base + 'map/village16x9@2x.png'   // fond 16:9 HD uniquement
+  const icons  = base + 'sprites/ui-32.png'        // sprites icônes HD
+  const haloHD = base + 'sprites/halo-32.png'      // halo HD
 
   return (
+    // Conteneur 16:9 avec hauteur max pour garder la rivière visible
     <div
       className="relative mx-auto w-full max-w-7xl rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800"
-      style={{ aspectRatio: '16 / 9', maxHeight: '85svh' }}  // ⇦ on voit la rivière sans scroller
-      title="Astuce : appuie sur “g” pour la grille"
+      style={{ aspectRatio: '16 / 9', maxHeight: '85svh' }}
     >
-      {/* Bouton pour ouvrir le menu */}
-      <DrawerButton onClick={() => setDrawerOpen(true)} />
+      {/* Image de fond 16:9 (HD), pas de srcset → rendu identique partout */}
+      <img
+        src={bgHD}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover pixelated"
+        aria-hidden
+      />
 
-      {/* Le Drawer (menu latéral) */}
-      <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} side="left" title="Menu" />
-
-      {/* Image 16:9 (net, sans étirement) */}
-      <picture>
-        <source srcSet={bg2x} media="(min-resolution: 1.5dppx)" />
-        <img
-          src={bg1x}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover pixelated"
-          aria-hidden
-        />
-      </picture>
-
-      {/* Grille 96×54 (tuiles 16px) */}
+      {/* Grille 96×54 tuiles (16px), utile pour placer les marqueurs */}
       {showGrid && (
         <div
           className="absolute inset-0 pointer-events-none z-10"
@@ -138,13 +119,13 @@ function VillageMap() {
             backgroundImage:
               'repeating-linear-gradient(0deg, rgba(0,0,0,.25), rgba(0,0,0,.25) 1px, transparent 1px, transparent 16px),' +
               'repeating-linear-gradient(90deg, rgba(0,0,0,.25), rgba(0,0,0,.25) 1px, transparent 1px, transparent 16px)',
-            backgroundSize: 'calc(100% / 96) calc(100% / 54)', // pile sur la grille
+            backgroundSize: 'calc(100% / 96) calc(100% / 54)', // 96x54 tuiles
           }}
           aria-hidden
         />
       )}
 
-      {/* Marqueurs (BUILDINGS doit contenir x/y en %) */}
+      {/* Marqueurs : positions en % (BUILDINGS.{x,y}) */}
       <ul className="absolute inset-0 m-0 list-none p-0 z-20">
         {BUILDINGS.map((b) => (
           <li
@@ -163,23 +144,17 @@ function VillageMap() {
               title={b.label}
               style={{ width: 56, height: 56 }} // hitbox confortable
             >
-              {/* halo animé */}
-              <span className="halo" style={{ backgroundImage: `url(${haloUrl})` }} aria-hidden />
-              {/* icône pixel (spritesheet) */}
-              <span className={`icon-pixel ico ico-${b.icon}`} style={{ backgroundImage: `url(${spriteUrl})` }} aria-hidden />
+              {/* halo animé (anneau) */}
+              <span className="halo" style={{ backgroundImage: `url(${haloHD})` }} aria-hidden />
+              {/* icône pixel (HD, agrandie) */}
+              <span className={`icon-pixel ico ico-${b.icon}`} style={{ backgroundImage: `url(${icons})` }} aria-hidden />
             </a>
           </li>
         ))}
       </ul>
-
-      {/* Aide discrète */}
-      <div className="absolute right-3 bottom-3 bg-white/70 dark:bg-stone-900/70 backdrop-blur-md rounded-xl px-3 py-2 text-sm shadow z-30">
-        <span className="font-medium">Grille :</span> touche <kbd>g</kbd>.
-      </div>
     </div>
   )
 }
-
 
 
 function PageShell({ title, subtitle, children }) {

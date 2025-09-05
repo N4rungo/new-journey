@@ -1,58 +1,101 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ------------------------------------------------------------------ */
+/* Base                                                               */
+/* ------------------------------------------------------------------ */
 
-/* Typography tweaks for Markdown */
-.prose :where(h1,h2,h3,h4){scroll-margin-top: 6rem}
-.prose img{max-width:100%;height:auto;border-radius:1rem}
-.prose code{background:rgba(0,0,0,.05);padding:.1rem .3rem;border-radius:.3rem}
-*{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+:root { color-scheme: light dark; }
+html, body, #root { height: 100%; }
+body { margin: 0; }
 
+/* Rendu pixel net (pas d’anti-aliasing) */
 .pixelated { image-rendering: pixelated; image-rendering: crisp-edges; }
-.sprite { width: 32px; height: 32px; display: inline-block; }
-.sprite.is-2x { width: 32px; height: 32px; }
 
-.fancy-title { font-family: "MedievalSharp", ui-serif, Georgia, "Times New Roman", serif; }
+/* ------------------------------------------------------------------ */
+/* Halo animé (HD only, 32x32, spritesheet 6 frames horizontales)     */
+/*   → image : public/sprites/halo-32.png                             */
+/* ------------------------------------------------------------------ */
 
-/* Chaque icône fait 16x16, alignée sur la feuille UI horizontale */
-.ico { background-repeat: no-repeat; background-size: auto; }
-.ico-castle   { background-position:   0px   0px; width:32px; height:32px; }
-.ico-barracks { background-position: -32px   0px; width:32px; height:32px; }
-.ico-tavern   { background-position: -64px   0px; width:32px; height:32px; }
-.ico-plaza    { background-position: -96px   0px; width:32px; height:32px; }
-.ico-archives { background-position: -128px   0px; width:32px; height:32px; }
-.ico-book     { background-position: -160px   0px; width:32px; height:32px; }
-
-
-/* halo (spritesheet 6 frames horizontales) */
 .halo {
-  position:absolute; left:50%; top:50%;
-  transform:translate(-50%, -50%) scale(2.7);
-  pointer-events:none;
-  width:32px; height:32px;
-  background-repeat:no-repeat; background-size:auto 100%;
-  animation: halo-anim 2000ms steps(2) infinite;
-  opacity:.9;
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+
+  width: 32px;
+  height: 32px;
+
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  animation: halo-anim 900ms steps(6) infinite;
+
+  opacity: .9;
   filter: drop-shadow(0 0 2px rgba(0,0,0,.45));
 }
-@keyframes halo-anim { from{background-position-x:0} to{background-position-x:-600%} }
 
-/* ombre ronde sous icône (assombrit l’arrière-plan) */
-.marker::before{
-  content:""; position:absolute; left:50%; top:50%;
-  width:28px; height:28px; transform:translate(-50%,-50%);
-  border-radius:9999px;
-  background: radial-gradient(closest-side, rgba(0,0,0,.4), rgba(0,0,0,0) 70%);
-  pointer-events:none;
+@keyframes halo-anim {
+  from { background-position-x: 0; }
+  to   { background-position-x: -600%; } /* 6 frames */
 }
 
-/* icône pixel (agrandie) */
-.icon-pixel{
-  position:absolute; left:50%; top:50%;
-  width:32px; height:32px;
-  transform:translate(-50%,-50%) scale(2);
-  transform-origin:center;
+/* ------------------------------------------------------------------ */
+/* Marqueur : légère ombre circulaire sous l’icône                    */
+/*   (diamètre un peu > à l’icône agrandie)                           */
+/* ------------------------------------------------------------------ */
+
+.marker::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background: radial-gradient(closest-side, rgba(0,0,0,.40), rgba(0,0,0,0) 70%);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Icône pixel (HD only, tuiles 32x32)                                */
+/*   → image : public/sprites/ui-32.png                               */
+/*   La mise à l’échelle donne des “gros” pictos bien lisibles.       */
+/* ------------------------------------------------------------------ */
+
+.icon-pixel {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 32px;
+  height: 32px;
+
+  /* Grossissement (ajuste 1.15–1.4 si besoin) */
+  transform: translate(-50%, -50%) scale(1.25);
+  transform-origin: center;
+
   image-rendering: pixelated;
-  filter: drop-shadow(0 1px 0 rgba(0,0,0,.5)) drop-shadow(0 0 2px rgba(0,0,0,.25));
+  filter:
+    drop-shadow(0 1px 0 rgba(0,0,0,.50))
+    drop-shadow(0 0 2px rgba(0,0,0,.25));
 }
 
+/* ------------------------------------------------------------------ */
+/* Mapping spritesheet (ligne d’icônes 32x32)                         */
+/*   Si tu ajoutes des icônes, continue à -32px, -64px, -96px…        */
+/* ------------------------------------------------------------------ */
+
+.ico { background-repeat: no-repeat; background-size: auto; }
+
+.ico-castle   { background-position:    0px 0px; width: 32px; height: 32px; }
+.ico-barracks { background-position:  -32px 0px; width: 32px; height: 32px; }
+.ico-tavern   { background-position:  -64px 0px; width: 32px; height: 32px; }
+.ico-plaza    { background-position:  -96px 0px; width: 32px; height: 32px; }
+.ico-archives { background-position: -128px 0px; width: 32px; height: 32px; }
+.ico-book     { background-position: -160px 0px; width: 32px; height: 32px; }
+
+/* ------------------------------------------------------------------ */
+/* (Optionnel) Esthétique générale                                    */
+/* ------------------------------------------------------------------ */
+
+a:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(245, 158, 11, .35); }
+
+@media (prefers-color-scheme: dark) {
+  /* un léger gain de contraste en mode sombre */
+  .marker::before { background: radial-gradient(closest-side, rgba(0,0,0,.5), rgba(0,0,0,0) 70%); }
+}
