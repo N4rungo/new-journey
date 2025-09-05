@@ -86,254 +86,100 @@ function useKey(key, fn) {
   }, [key, fn])
 }
 
-/* function VillageMap() {
-  const [showGrid, setShowGrid] = React.useState(false);
-  useKey('g', () => setShowGrid(s => !s));
+function VillageMap() {
+  // État du drawer et de la grille
+  const [drawerOpen, setDrawerOpen] = React.useState(false)
+  const [showGrid, setShowGrid] = React.useState(false)
+  useKey('g', () => setShowGrid((s) => !s))
 
+  // Base URL (GitHub Pages)
   const base = import.meta.env.BASE_URL
 
-  const prefersReducedMotion = usePrefersReducedMotion()
-  const ringAnim = {
-    initial: { opacity: 0, scale: 0.8 },
-    animate: prefersReducedMotion
-      ? { opacity: 1, scale: 1, transition: { duration: 0 } }
-      : { opacity: [0.3, 1, 0.3], scale: [0.9, 1, 0.9], transition: { duration: 3, repeat: Infinity } }
-  }
+  // Fond 16:9 (ajoute bien les deux fichiers dans public/map/)
+  const bg1x = base + 'map/village16x9@1x.png'
+  const bg2x = base + 'map/village16x9@2x.png'
 
-  const spriteUrl = base + 'sprites/ui-32.png';
-  //const spriteUrl = (window.devicePixelRatio || 1) > 1
-  // ? base + 'sprites/ui-32.png'
-  // : base + 'sprites/ui-16.png';
-
-  const haloUrl = (window.devicePixelRatio || 1) > 1
-   ? base + 'sprites/halo-32.png'
-   : base + 'sprites/halo-16.png';
-
-  return (
-     <div className="relative w-full aspect-[1/1] rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800">
-      <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-200 dark:from-stone-800 dark:via-stone-900 dark:to-stone-800" aria-hidden />
-      <div className="pointer-events-none absolute inset-0 ring-1 ring-black/10 rounded-2xl" aria-hidden />
-
-	    <img
-	      src={base + 'map/village02.png'}
-	      srcSet={`${base}map/village02.png 1x, ${base}map/village02.png 2x`}
-	      alt=""
-	      className="absolute inset-0 w-full h-full object-cover pixelated"
-	      aria-hidden
-	    />
-
-	{showGrid && (
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              zIndex: 5,
-              backgroundImage:
-                'repeating-linear-gradient(0deg, rgba(0,0,0,.25), rgba(0,0,0,.25) 1px, transparent 1px, transparent 16px), ' +
-                'repeating-linear-gradient(90deg, rgba(0,0,0,.25), rgba(0,0,0,.25) 1px, transparent 1px, transparent 16px)',
-              backgroundSize: '16px 16px',
-            }}
-            aria-hidden
-          />
-        )}
-
-	<ul className="absolute inset-0 m-0 list-none p-0">
-	  {BUILDINGS.map((b) => (
-	    <li 
-		key={b.id} 
-		style={{ position: 'absolute', left: `${b.x}%`, top: `${b.y}%`, transform: 'translate(-50%, -50%)' }}>
-	      <a
-	        href={b.href}
-	        className="group relative block rounded-xl outline-none focus-visible:ring-4 ring-amber-500/50"
-	        aria-label={b.label}
-		title={b.label} 
-		style={{ width: 56, height: 56 }}
-	      >
-
-		<span 
-			className="halo" 
-			style={{ 
-				backgroundImage:`url(${haloUrl})`,
-			}} 
-			aria-hidden 
-		/>	
-		<span 
-			className={`icon-pixel ico ico-${b.icon}`} 
-			style={{ 
-				backgroundImage:`url(${spriteUrl})`,
-			}} 
-			aria-hidden 
-		/>
-	      </a>
-	    </li>
-	  ))}
-	</ul>
-
-      <div className="absolute left-3 bottom-3 bg-white/70 dark:bg-stone-900/70 backdrop-blur-md rounded-xl px-3 py-2 text-sm shadow">
-        <span className="font-medium">Conseil :</span> survolez et cliquez sur un bâtiment pour obtenir des informations.
-      </div>
-    </div>
-  )
-}
- */
-
-function VillageMap() {
-  // --- ÉTATS & RÉFS ----------------------------------------------------------
-  const [showGrid, setShowGrid] = React.useState(false);        // toggle grille (touche “g”)
-  const [fitMode, setFitMode] = React.useState('fit');          // 'fit' (tout voir) | 'fill' (recadrer)
-  const containerRef = React.useRef(null);                      // conteneur visible
-  const [contSize, setContSize] = React.useState({ w: 0, h: 0 });// largeur/hauteur réelles du conteneur
-  const [imgSize, setImgSize] = React.useState({ w: 768, h: 768 }); // taille intrinsèque de l'image (px)
-
-  // touche “g” pour afficher/masquer la grille
-  useKey('g', () => setShowGrid((s) => !s));
-
-  // observe la taille du conteneur (resize)
-  React.useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(() => {
-      setContSize({ w: el.clientWidth, h: el.clientHeight });
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  // --- UTILS -----------------------------------------------------------------
-  // Calcule le rectangle réellement occupé par l’image (fit/contain vs fill/cover)
-  function getDisplayRect(containerW, containerH, imgW, imgH, mode = 'fit') {
-    const imgAspect = imgW / imgH;
-    const contAspect = containerW / containerH;
-    let w, h;
-    if (mode === 'fill') {
-      // cover
-      if (contAspect > imgAspect) { w = containerW; h = containerW / imgAspect; }
-      else                        { h = containerH; w = containerH * imgAspect; }
-    } else {
-      // fit (contain)
-      if (contAspect > imgAspect) { h = containerH; w = containerH * imgAspect; }
-      else                        { w = containerW; h = containerW / imgAspect; }
-    }
-    const x = (containerW - w) / 2;
-    const y = (containerH - h) / 2;
-    return { x, y, w, h };
-  }
-
-  // Alt+clic pour copier les coords (en %) du point cliqué dans la carte
-  function handleAltClick(e) {
-    if (!e.altKey) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    const rect = getDisplayRect(r.width, r.height, imgSize.w, imgSize.h, fitMode);
-    const xPct = ((e.clientX - r.left - rect.x) / rect.w) * 100;
-    const yPct = ((e.clientY - r.top  - rect.y) / rect.h) * 100;
-    const s = `${xPct.toFixed(1)}, ${yPct.toFixed(1)}`;
-    navigator.clipboard?.writeText(s);
-    console.log('coords %:', s);
-  }
-
-  // --- BASE URL & SPRITES ----------------------------------------------------
-  const base = import.meta.env.BASE_URL;
-
-  // sprite icônes (auto @1x/@2x selon DPR)
+  // Sprites (icônes + halo) selon DPR
   const spriteUrl = (window.devicePixelRatio || 1) > 1
     ? base + 'sprites/ui-32.png'
-    : base + 'sprites/ui-16.png';
-
-  // sprite halo animé (auto @1x/@2x)
+    : base + 'sprites/ui-16.png'
   const haloUrl = (window.devicePixelRatio || 1) > 1
     ? base + 'sprites/halo-32.png'
-    : base + 'sprites/halo-16.png';
+    : base + 'sprites/halo-16.png'
 
-  // image de fond (mets une version @2x si dispo)
-  const img1x = base + 'map/village02.png';
-  const img2x = img1x; // remplace par 'map/village02@2x.png' si tu l’ajoutes
-
-  // Rectangle d’affichage courant (où l’image est réellement peinte)
-  const rect = getDisplayRect(contSize.w, contSize.h, imgSize.w, imgSize.h, fitMode);
-
-  // --- RENDU -----------------------------------------------------------------
   return (
     <div
-      ref={containerRef}
-      onClick={handleAltClick}
-      className="relative w-full h-[100svh] rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800 bg-stone-900/5 dark:bg-stone-950"
-      title="Astuce : Alt+clic copie les coordonnées (en %)"
+      className="relative mx-auto w-full max-w-7xl rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800"
+      style={{ aspectRatio: '16 / 9', maxHeight: '85svh' }}  // ⇦ on voit la rivière sans scroller
+      title="Astuce : appuie sur “g” pour la grille"
     >
-      {/* HUD compact : bouton Fit/Fill */}
-      <div className="absolute top-2 right-2 z-20">
-        <button
-          onClick={() => setFitMode(m => (m === 'fit' ? 'fill' : 'fit'))}
-          className="px-2 py-1 rounded-lg text-sm border border-stone-200 dark:border-stone-700 bg-white/80 dark:bg-stone-900/70 backdrop-blur hover:bg-white dark:hover:bg-stone-900"
-        >
-          {fitMode === 'fit' ? 'Ajusté' : 'Recadré'}
-        </button>
-      </div>
+      {/* Bouton pour ouvrir le menu */}
+      <DrawerButton onClick={() => setDrawerOpen(true)} />
 
-      {/* IMAGE DE FOND (affichée dans le rectangle calculé) */}
-      <img
-        src={img1x}
-        srcSet={`${img1x} 1x, ${img2x} 2x`}
-        alt=""
-        className="absolute pixelated"
-        style={{ left: rect.x, top: rect.y, width: rect.w, height: rect.h, objectFit: 'fill' }}
-        onLoad={(e) => setImgSize({ w: e.currentTarget.naturalWidth, h: e.currentTarget.naturalHeight })}
-        aria-hidden
-      />
+      {/* Le Drawer (menu latéral) */}
+      <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} side="left" title="Menu" />
 
-      {/* GRILLE (suivi de l’échelle réelle des tuiles 16px de l’image) */}
+      {/* Image 16:9 (net, sans étirement) */}
+      <picture>
+        <source srcSet={bg2x} media="(min-resolution: 1.5dppx)" />
+        <img
+          src={bg1x}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover pixelated"
+          aria-hidden
+        />
+      </picture>
+
+      {/* Grille 96×54 (tuiles 16px) */}
       {showGrid && (
         <div
-          className="absolute pointer-events-none"
+          className="absolute inset-0 pointer-events-none z-10"
           style={{
-            left: rect.x, top: rect.y, width: rect.w, height: rect.h, zIndex: 5,
-            // taille d’une tuile à l’écran = largeur_affichée / nb_de_tuiles_horizontales
-            backgroundSize: `${rect.w / (imgSize.w / 16)}px ${rect.h / (imgSize.h / 16)}px`,
             backgroundImage:
-              'repeating-linear-gradient(0deg, rgba(0,0,0,.25), rgba(0,0,0,.25) 1px, transparent 1px, transparent 16px), ' +
+              'repeating-linear-gradient(0deg, rgba(0,0,0,.25), rgba(0,0,0,.25) 1px, transparent 1px, transparent 16px),' +
               'repeating-linear-gradient(90deg, rgba(0,0,0,.25), rgba(0,0,0,.25) 1px, transparent 1px, transparent 16px)',
+            backgroundSize: 'calc(100% / 96) calc(100% / 54)', // pile sur la grille
           }}
           aria-hidden
         />
       )}
 
-      {/* MARQUEURS (positions converties % -> px dans le rectangle d’image) */}
-      <ul className="absolute inset-0 m-0 list-none p-0">
-        {BUILDINGS.map((b) => {
-          const px = rect.x + (b.x / 100) * rect.w;
-          const py = rect.y + (b.y / 100) * rect.h;
-          return (
-            <li key={b.id} style={{ position: 'absolute', left: px, top: py, transform: 'translate(-50%, -50%)' }}>
-              <a
-                href={b.href}
-                className="marker group relative block rounded-xl outline-none focus-visible:ring-4 ring-amber-500/50"
-                aria-label={b.label}
-                title={b.label}
-                style={{ width: 56, height: 56 }} // hitbox confortable (≈ 56x56)
-              >
-                {/* Halo circulaire animé (spritesheet) */}
-                <span
-                  className="halo"
-                  style={{ backgroundImage: `url(${haloUrl})` }}
-                  aria-hidden
-                />
-                {/* Icône pixel (agrandie + ombre) */}
-                <span
-                  className={`icon-pixel ico ico-${b.icon}`}
-                  style={{ backgroundImage: `url(${spriteUrl})` }}
-                  aria-hidden
-                />
-              </a>
-            </li>
-          );
-        })}
+      {/* Marqueurs (BUILDINGS doit contenir x/y en %) */}
+      <ul className="absolute inset-0 m-0 list-none p-0 z-20">
+        {BUILDINGS.map((b) => (
+          <li
+            key={b.id}
+            style={{
+              position: 'absolute',
+              left: `${b.x}%`,
+              top: `${b.y}%`,
+              transform: 'translate(-50%, -50%)'
+            }}
+          >
+            <a
+              href={b.href}
+              className="marker group relative block rounded-xl outline-none focus-visible:ring-4 ring-amber-500/50"
+              aria-label={b.label}
+              title={b.label}
+              style={{ width: 56, height: 56 }} // hitbox confortable
+            >
+              {/* halo animé */}
+              <span className="halo" style={{ backgroundImage: `url(${haloUrl})` }} aria-hidden />
+              {/* icône pixel (spritesheet) */}
+              <span className={`icon-pixel ico ico-${b.icon}`} style={{ backgroundImage: `url(${spriteUrl})` }} aria-hidden />
+            </a>
+          </li>
+        ))}
       </ul>
 
-      {/* INFOS (bulle d’aide discrète) */}
-      <div className="absolute left-3 bottom-3 bg-white/70 dark:bg-stone-900/70 backdrop-blur-md rounded-xl px-3 py-2 text-sm shadow">
-        <span className="font-medium">Conseil :</span> survolez et cliquez sur un bâtiment pour obtenir des informations.
+      {/* Aide discrète */}
+      <div className="absolute right-3 bottom-3 bg-white/70 dark:bg-stone-900/70 backdrop-blur-md rounded-xl px-3 py-2 text-sm shadow z-30">
+        <span className="font-medium">Grille :</span> touche <kbd>g</kbd>.
       </div>
     </div>
-  );
+  )
 }
+
 
 
 function PageShell({ title, subtitle, children }) {
@@ -485,7 +331,8 @@ function HeaderHUD({ onToggleFit, fitMode }) {
           <button onClick={onToggleFit} className="px-2 py-1 rounded border border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800">
             {fitMode === 'fit' ? 'Ajusté' : 'Recadré'}
           </button>
-          {/* Ton ThemeToggle ici si tu veux */}
+          {<ThemeToggle />}
+          {children}
         </div>
       </div>
     </div>
@@ -516,6 +363,54 @@ function Footer() {
       <p>© {new Date().getFullYear()} · Votre Nom — Fait avec React, Tailwind & Framer Motion.</p>
       <p><a className="underline" href="https://github.com" target="_blank" rel="noreferrer">Code source</a> · <a className="underline" href="#/place">Plan du site</a></p>
     </footer>
+  )
+}
+
+function Drawer({ open, onClose, side = 'left', children, title = 'Menu' }) {
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-200 ${open ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        onClick={onClose}
+        aria-hidden
+      />
+      {/* Panel */}
+      <aside
+        className={`fixed z-50 top-0 ${side === 'left' ? 'left-0' : 'right-0'} h-svh w-72 max-w-[90vw] bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-800 shadow-xl transform transition-transform duration-200
+        ${open ? 'translate-x-0' : side === 'left' ? '-translate-x-full' : 'translate-x-full'}`}
+        role="dialog"
+        aria-label={title}
+      >
+        <div className="flex items-center justify-between px-3 py-2 border-b border-stone-200 dark:border-stone-800">
+          <h2 className="font-semibold">{title}</h2>
+          <button onClick={onClose} className="rounded px-2 py-1 hover:bg-stone-100 dark:hover:bg-stone-800" aria-label="Fermer">✕</button>
+        </div>
+        <div className="p-3 space-y-2 text-sm">
+          <a className="block hover:underline" href="#/place">🧭 Place</a>
+          <a className="block hover:underline" href="#/chateau">🏰 Château</a>
+          <a className="block hover:underline" href="#/caserne">⚔️ Caserne</a>
+          <a className="block hover:underline" href="#/auberge">🍻 Auberge</a>
+          <a className="block hover:underline" href="#/cv">📜 CV</a>
+          <hr className="border-stone-200 dark:border-stone-800" />
+          {/* Tu peux insérer ici ton ThemeToggle si tu veux */}
+        </div>
+      </aside>
+    </>
+  );
+}
+
+// --- Bouton flottant qui ouvre le Drawer ------------------------------------
+function DrawerButton({ onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className="fixed z-50 top-3 left-3 md:left-4 rounded-xl border border-stone-200 dark:border-stone-700 bg-white/90 dark:bg-stone-900/80 backdrop-blur px-3 py-2 shadow hover:bg-white dark:hover:bg-stone-900"
+      aria-label="Ouvrir le menu"
+      title="Menu"
+    >
+      ☰
+    </button>
   )
 }
 
