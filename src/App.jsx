@@ -4,11 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { projects, getPage } from './lib/content.js'
 
 const BUILDINGS = [
-  { id: 'chateau',  label: 'Château (Projets)',            x: 25, y: 38, href: '#/chateau',  icon: 'castle',   desc: 'Mes projets personnels…' },
-  { id: 'caserne',  label: "Caserne (Formations)",       x: 60, y: 60, href: '#/caserne',  icon: 'barracks', desc: 'Formations, compétences…' },
-  { id: 'auberge',  label: 'Auberge (Passe-temps)',        x: 55, y: 30, href: '#/auberge',  icon: 'tavern',   desc: 'Jeux vidéo & société…' },
-  { id: 'place',    label: 'Place du village (Index)',     x: 45, y: 35, href: '#/place',    icon: 'plaza',    desc: 'Index accessible.' },
-  { id: 'cv',       label: 'Salle des archives (CV)',      x: 40, y: 22, href: '#/cv',       icon: 'archives', desc: 'CV imprimable.' },
+  { id: 'chateau',  label: 'Château (Projets)',            x: 25, y: 39, href: '#/chateau',  icon: 'castle',   desc: 'Mes projets personnels…' },
+  { id: 'caserne',  label: "Caserne (Formations)",       x: 60, y: 62, href: '#/caserne',  icon: 'barracks', desc: 'Formations, compétences…' },
+  { id: 'auberge',  label: 'Auberge (Passe-temps)',        x: 56, y: 29, href: '#/auberge',  icon: 'tavern',   desc: 'Jeux vidéo & société…' },
+  { id: 'place',    label: 'Place du village (Index)',     x: 46, y: 35, href: '#/place',    icon: 'plaza',    desc: 'Index accessible.' },
+  { id: 'cv',       label: 'Salle des archives (CV)',      x: 38, y: 23, href: '#/cv',       icon: 'archives', desc: 'CV imprimable.' },
   // { id: 'biblio', label: 'Bibliothèque', x: 58, y: 60, href: '#/biblio', icon: 'book', desc: 'Lectures, notes.' },
 ];
 
