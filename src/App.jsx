@@ -296,96 +296,46 @@ function ThemeToggle() {
   );
 }
 
-
-function HeaderHUD({ onToggleFit, fitMode }) {
+function Welcome() {
   return (
-    <div className="pointer-events-none absolute top-0 left-0 right-0 z-20 p-3">
-      <div className="pointer-events-auto mx-auto max-w-5xl flex items-center gap-2 rounded-xl bg-white/70 dark:bg-stone-900/70 backdrop-blur px-3 py-2 shadow">
-        <a href="#/" className="font-bold">🏞️ Village</a>
-        <div className="ml-auto flex items-center gap-2 text-sm">
-          <button onClick={onToggleFit} className="px-2 py-1 rounded border border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800">
-            {fitMode === 'fit' ? 'Ajusté' : 'Recadré'}
-          </button>
-          {<ThemeToggle />}
-          {children}
-        </div>
-      </div>
-    </div>
-  );
+    <section className="mx-auto max-w-7xl px-4 py-6 text-center">
+      <h1 className="fancy-title text-3xl md:text-4xl font-extrabold tracking-tight">
+        Bienvenue dans mon village
+      </h1>
+      <p className="mt-1 text-stone-600 dark:text-stone-300">
+        Cliquez sur un bâtiment pour en découvrir plus sur moi.
+      </p>
+    </section>
+  )
 }
+
 
 function TopNav() {
   return (
-    <header className="sticky top-0 z-10 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-stone-900/60 bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800">
-      <div className="max-w-5xl mx-auto px-4 py-3 flex items-center gap-3">
-        <a href="#/" className="font-black tracking-tight text-lg">🏞️ A New Journey</a>
-        <nav className="ml-auto flex items-center gap-3 text-sm">
-          <a className="hover:underline" href="#/place">Place</a>
-          <a className="hover:underline" href="#/chateau">Château</a>
-          <a className="hover:underline" href="#/caserne">Caserne</a>
-          <a className="hover:underline" href="#/auberge">Auberge</a>
-          <a className="hover:underline" href="#/cv">CV</a>
-	  <ThemeToggle />
+    <header className="sticky top-0 z-50 bg-white/70 dark:bg-stone-950/70 backdrop-blur border-b border-stone-200 dark:border-stone-800">
+      <div className="mx-auto max-w-7xl px-4 h-14 flex items-center justify-between">
+        <a href="#/" className="font-semibold">🛡️ Mon Village</a>
+        <nav className="flex items-center gap-4 text-sm">
+          <a href="#/place" className="hover:underline">Place</a>
+          <a href="#/chateau" className="hover:underline">Château</a>
+          <a href="#/caserne" className="hover:underline">Caserne</a>
+          <a href="#/auberge" className="hover:underline">Auberge</a>
+          <a href="#/cv" className="hover:underline">CV</a>
+          <ThemeToggle />
         </nav>
       </div>
     </header>
   )
 }
 
+
 function Footer() {
   return (
-    <footer className="mt-12 py-8 text-center text-sm text-stone-500">
-      <p>© {new Date().getFullYear()} · Votre Nom — Fait avec React, Tailwind & Framer Motion.</p>
-      <p><a className="underline" href="https://github.com" target="_blank" rel="noreferrer">Code source</a> · <a className="underline" href="#/place">Plan du site</a></p>
+    <footer className="mt-6 border-t border-stone-200 dark:border-stone-800">
+      <div className="mx-auto max-w-7xl px-4 py-6 text-sm text-center text-stone-600 dark:text-stone-400">
+        © {new Date().getFullYear()} Ton Nom — Portfolio
+      </div>
     </footer>
-  )
-}
-
-function Drawer({ open, onClose, side = 'left', children, title = 'Menu' }) {
-  return (
-    <>
-      {/* Backdrop */}
-      <div
-        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-200 ${open ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-        onClick={onClose}
-        aria-hidden
-      />
-      {/* Panel */}
-      <aside
-        className={`fixed z-50 top-0 ${side === 'left' ? 'left-0' : 'right-0'} h-svh w-72 max-w-[90vw] bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-800 shadow-xl transform transition-transform duration-200
-        ${open ? 'translate-x-0' : side === 'left' ? '-translate-x-full' : 'translate-x-full'}`}
-        role="dialog"
-        aria-label={title}
-      >
-        <div className="flex items-center justify-between px-3 py-2 border-b border-stone-200 dark:border-stone-800">
-          <h2 className="font-semibold">{title}</h2>
-          <button onClick={onClose} className="rounded px-2 py-1 hover:bg-stone-100 dark:hover:bg-stone-800" aria-label="Fermer">✕</button>
-        </div>
-        <div className="p-3 space-y-2 text-sm">
-          <a className="block hover:underline" href="#/place">🧭 Place</a>
-          <a className="block hover:underline" href="#/chateau">🏰 Château</a>
-          <a className="block hover:underline" href="#/caserne">⚔️ Caserne</a>
-          <a className="block hover:underline" href="#/auberge">🍻 Auberge</a>
-          <a className="block hover:underline" href="#/cv">📜 CV</a>
-          <hr className="border-stone-200 dark:border-stone-800" />
-          {/* Tu peux insérer ici ton ThemeToggle si tu veux */}
-        </div>
-      </aside>
-    </>
-  );
-}
-
-// --- Bouton flottant qui ouvre le Drawer ------------------------------------
-function DrawerButton({ onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      className="fixed z-50 top-3 left-3 md:left-4 rounded-xl border border-stone-200 dark:border-stone-700 bg-white/90 dark:bg-stone-900/80 backdrop-blur px-3 py-2 shadow hover:bg-white dark:hover:bg-stone-900"
-      aria-label="Ouvrir le menu"
-      title="Menu"
-    >
-      ☰
-    </button>
   )
 }
 
@@ -395,31 +345,38 @@ export default function App() {
 
   const Page = useMemo(() => {
     switch (path) {
-      case '/': return (
-        <main className="max-w-6xl mx-auto px-4 py-6">
-          <div className="mb-6">
-	    <h1 className="fancy-title text-3xl md:text-4xl font-extrabold tracking-tight">Bienvenue dans mon village</h1>
-            <p className="text-stone-600 dark:text-stone-300 mt-1">Cliquez sur un bâtiment pour en découvrir plus sur moi.</p>
-          </div>
-          <VillageMap />
-        </main>
-      )
-      case '/place': return <PlacePage />
+      case '/':
+        return (
+          <main>
+            {/* Texte d’intro centré */}
+            <Welcome />
+            {/* Carte HD-only : le composant VillageMap gère son centrage + aspect 16:9 */}
+            <section className="px-4">
+              <VillageMap />
+            </section>
+          </main>
+        )
+      case '/place':   return <PlacePage />
       case '/chateau': return <ProjectsPage />
       case '/caserne': return <TrainingPage />
       case '/auberge': return <HobbiesPage />
-      case '/cv': return <CVPage />
-      default: return (
-        <PageShell title="Page introuvable" subtitle="La destination demandée n'existe pas (404)">
-          <a className="underline" href="#/">Retour à la carte</a>
-        </PageShell>
-      )
+      case '/cv':      return <CVPage />
+      default:
+        return (
+          <PageShell
+            title="Page introuvable"
+            subtitle="La destination demandée n'existe pas (404)"
+          >
+            <a className="underline" href="#/">Retour à la carte</a>
+          </PageShell>
+        )
     }
   }, [path])
 
   return (
     <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-50">
       <TopNav />
+      {/* Si tu utilises des animations de page, garde AnimatePresence */}
       <AnimatePresence mode="wait">{Page}</AnimatePresence>
       <Footer />
     </div>
