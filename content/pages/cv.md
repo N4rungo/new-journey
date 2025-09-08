@@ -1,17 +1,65 @@
-# Votre Nom
+# Matthieu BORIE
+📍 Région Parisienne / Remote | 📧 boriematthieu@gmail.com | 🔗 [LinkedIn](https://www.linkedin.com/in/mborie1337) | 🔗 [GitHub](https://n4rungo.github.io/new-journey/)
 
-email@example.com · github.com/vous · Ville, Pays
+🎯 **De l’Ingénierie Réseaux & QA vers la Cybersécurité | Blue Team – DevSecOps - Architecte Réseaux Sécurisés**
 
-## Expérience
-**Poste A — Société** *(2022–2024)*  
-- Mission A, résultat mesuré (+35% ...).  
-- Mission B, techno principale.
+## 🛠️ Compétences
+- **Réseaux & Sécurité** : DMZ, VLAN, VPN, pfSense, Fortinet, Cisco ASA, Wazuh, Zscaler, Wireshark, tcpdump, iptables  
+- **Cloud & Virtualisation** : AWS, Azure, VmWare ESXi, KVM, VirtualBox, Docker, Docker Swarm  
+- **DevSecOps** & Automatisation : GitHub Actions, Ansible, pytest, Trivy, Python, Bash, VBA  
+- **Systèmes** : Linux (Debian, CentOS), Windows Server, AD/LDAP, PostgreSQL  
+- **Pentest** : nmap, Burp Suite, Hydra, Metasploit, gobuster, sqlmap, GTFOBins
 
-**Poste B — Société** *(2020–2022)*  
-- Mission C, résultat.
+## 💼 Expériences
+- **Senior QA Software Engineer – Extreme Networks (2021–2024)**
+    - **QA Lead** dans une équipe internationale de **15 personnes**
+    - **Automatisation** des plans de test (Python) : **+50% de couverture en 2 ans**
+    - Simulation de plateformes clients **Cloud** (Azure, AWS)  
+    **++** *Acteur clé lors du rachat de l’entreprise (**coordination inter-équipe**)*
 
-## Formation
-- Diplôme / Certif — Établissement
+- **QA Engineer – Infovista (2015–2021)**
+    - Administration d’**environnements Cloud** (Azure), **conteneurisation** (Docker)
+    - Tests d’interopérabilité avec firewall : **Cisco**, **Fortinet**, Check Point
+    - Mise en place de **plateformes réseaux virtuelles** complètes (VmWare ESXi)  
+    **++** *Organisation de soirées jeux de société, billard*
 
-## Compétences
-JS/TS, React, Node, HTML/CSS, Git, CI, Tests
+- **Consultant QA Engineer – ALTEN (2011–2015)**
+    - Scénarios de tests réseau réalistes : IxLoad, iPerf, Quagga, NetEmul
+    - **Administration de plateformes hybrides** (Linux, Windows, VMware)
+    - Tests de robustesse, planification et exécution multi-campagnes
+    - **Rédaction de plans de tests** et rapports de bugs  
+    **++** *Création d’un outil Excel/VBA pour suivi de couverture de tests*
+
+## 🎓 Formations & Projets 🧪
+- **Cybersecurity Fullstack – JEDHA (2025 – 3 mois intensifs)**
+    - **Architecture sécurisée** & pipeline CI/CD
+    - **Infrastructure multi-sites** avec Active Directory & SIEM
+    - **Pentest** applicatif + rapport
+    - **Projet final** : 
+        - Infrastructure complète (AD, serveur web/db, SIEM, firewall)
+        - Pentest croisé entre pairs
+
+- **Certifications en cours de préparation :**
+    - AIS
+    - HTB CDSA
+    - HTB CPTS
+
+- **Parcours introductif à la cybersécurité – ORSYS (2025 – 2 semaines)**
+    - Sensibilisation, enjeux, référentiels, MITRE ATT&CK, bonnes pratiques
+
+- **Master Informatique et Réseaux – Université Paris 6 (2011)**
+
+## 🗣️ Langues
+- Français : langue maternelle  
+- Anglais : professionnel (niveau B2/C1)
+
+## 🧠 Soft Skills
+- 💭 Rigueur, esprit d’analyse  
+- 🤝 Communication inter-équipes, pédagogie  
+- 🎯 Esprit collectif, curiosité technique
+
+## 🎯 Divers
+- 🤿 Certificat N1 plongée, permis moto 🏍️
+- 🎭 Théâtre amateur, danse rock 🕺
+- 🍽️ Bénévolat fête village (25+ ans, 600+ convives)
+- 🎞️ Cinéphile
