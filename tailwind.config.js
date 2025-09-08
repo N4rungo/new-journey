@@ -9,7 +9,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        hero: ['"Cinzel Decorative"', 'ui-serif', 'Georgia', 'serif'],
+        hero: ['"Jacquard 12"', 'ui-serif', 'Georgia', 'serif'],
         medieval: ['"MedievalSharp"', 'cursive'],
       }
     }
