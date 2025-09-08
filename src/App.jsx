@@ -298,7 +298,7 @@ function ThemeToggle() {
 function Welcome() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-6 text-center">
-      <h1 className="font-hero text-3xl md:text-4xl font-extrabold tracking-tight title-outline">
+      <h1 className="font-hero text-3xl md:text-4xl tracking-wide title-outline">
         Bienvenue dans mon village
       </h1>
       <p className="mt-1 text-stone-600 dark:text-stone-300">
