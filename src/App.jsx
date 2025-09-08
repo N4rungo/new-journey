@@ -156,12 +156,11 @@ function VillageMap() {
   )
 }
 
-
 function PageShell({ title, subtitle, children }) {
   return (
     <div className="max-w-5xl mx-auto px-4 py-6">
-      <h1 className="fancy-title text-3xl md:text-4xl font-extrabold tracking-tight">{title}</h1>
-      {subtitle && <p className="text-stone-600 dark:text-stone-300 mt-1">{subtitle}</p>}
+      <h1 className="font-hero text-3xl md:text-4xl font-extrabold tracking-tight title-outline">{title}</h1>
+      {subtitle && <p className="font-medieval text-stone-600 dark:text-stone-300 mt-1">{subtitle}</p>}
       <div className="mt-6 prose prose-stone dark:prose-invert max-w-none">{children}</div>
     </div>
   )
@@ -169,7 +168,7 @@ function PageShell({ title, subtitle, children }) {
 
 function PlacePage() {
   return (
-    <PageShell title="Place du village" subtitle="Navigation alternative, accessible par liste">
+    <PageShell title="Place du village" subtitle="Accédez au contenu du site">
       <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 !prose-none">
         {BUILDINGS.map((b) => (
           <li key={b.id} className="rounded-xl border border-stone-200 dark:border-stone-800 p-4 hover:shadow">
@@ -189,7 +188,7 @@ function PlacePage() {
 
 function ProjectsPage() {
   return (
-    <PageShell title="Château" subtitle="Projets (contenu Markdown)">
+    <PageShell title="Château" subtitle="Liste de projets">
       <div className="grid md:grid-cols-2 gap-4 !prose-none">
         {projects.map((p) => (
           <article key={p.slug} className="rounded-xl border border-stone-200 dark:border-stone-800 p-4">
@@ -299,7 +298,7 @@ function ThemeToggle() {
 function Welcome() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-6 text-center">
-      <h1 className="fancy-title text-3xl md:text-4xl font-extrabold tracking-tight">
+      <h1 className="font-hero text-3xl md:text-4xl font-extrabold tracking-tight title-outline">
         Bienvenue dans mon village
       </h1>
       <p className="mt-1 text-stone-600 dark:text-stone-300">
@@ -333,7 +332,7 @@ function Footer() {
   return (
     <footer className="mt-6 border-t border-stone-200 dark:border-stone-800">
       <div className="mx-auto max-w-7xl px-4 py-6 text-sm text-center text-stone-600 dark:text-stone-400">
-        © {new Date().getFullYear()} Ton Nom — Portfolio
+        © {new Date().getFullYear()} Matthieu BORIE — My Story
       </div>
     </footer>
   )
