@@ -301,7 +301,7 @@ function Welcome() {
       <h1 className="font-hero text-3xl md:text-4xl tracking-wide title-outline">
         Bienvenue dans mon village
       </h1>
-      <p className="mt-1 text-stone-600 dark:text-stone-300">
+      <p className="font-medieval mt-1 text-stone-600 dark:text-stone-300">
         Cliquez sur un bâtiment pour en découvrir plus sur moi.
       </p>
     </section>
