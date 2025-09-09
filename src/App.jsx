@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { projects, getPage } from './lib/content.js'
 import ProjectMarkdown from './components/ProjectMarkdown'
-import { resolveProjectLink } from '../lib/content'
+import { resolveProjectLink } from './lib/content'
 
 const BUILDINGS = [
   { id: 'chateau',  label: 'Château (Projets)',            x: 25, y: 39, href: '#/chateau',  icon: 'castle',   desc: 'Mes projets personnels…' },
