@@ -32,16 +32,30 @@ const projectsMap = import.meta.glob('/content/projects/*.md', {
 
 export const projects = Object.entries(projectsMap)
   .map(([path, raw]) => {
-    /* const { frontmatter, html } = parseFrontMatter(raw) */
     const { frontmatter, body, html } = parseFrontMatter(raw)
     const slug = path.split('/').pop().replace(/\.md$/, '')
-    /* return { slug, frontmatter, html } */
-    return { slug, frontmatter, body, html } // ← ajoute body
+    return { slug, frontmatter, body, html }
   })
+  // masquer ceux avec hidden: true
+  .filter(p => !p.frontmatter?.hidden)
+
   .sort((a, b) => {
-    const da = a.frontmatter?.date ? new Date(a.frontmatter.date).getTime() : 0
-    const db = b.frontmatter?.date ? new Date(b.frontmatter.date).getTime() : 0
+    // 1) pinned d'abord
+    const pa = !!a.frontmatter?.pinned
+    const pb = !!b.frontmatter?.pinned
+    if (pa !== pb) return pb - pa
+
+    // 2) order croissant (1,2,3...) ; non défini = +∞ (passe après)
+    const wa = numOr(a.frontmatter?.order, Infinity)
+    const wb = numOr(b.frontmatter?.order, Infinity)
+    if (wa !== wb) return wa - wb
+
+    // 3) date décroissante (plus récent en premier)
+    const da = dateMs(a.frontmatter?.date)
+    const db = dateMs(b.frontmatter?.date)
     if (db !== da) return db - da
+
+    // 4) titre (fallback stable)
     return (a.frontmatter?.title || '').localeCompare(b.frontmatter?.title || '')
   })
 

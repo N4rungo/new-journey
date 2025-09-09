@@ -1,14 +1,16 @@
 ---
-title: "Carte interactive du village"
+title: "Création d'un portfolio sur GitHub"
 date: 2025-09-01
-stack: ["React", "Tailwind", "Framer Motion"]
+stack: ["ChatGPT 5", "Visual Studio Code", "GitHub", "React", "Tailwind"]
+order: 666
+pinned: false
+hidden: false
 links:
   github: https://github.com/N4rungo/new-journey
   demo: https://n4rungo.github.io/new-journey/
-summary: "Prototype de carte SVG accessible avec bâtiments cliquables."
+summary: "Présentation de mon parcours sous la forme d'une carte intéractive."
 tags: ["svg", "accessibilité", "portfolio"]
 ---
 
-- Navigation **hash** compatible GitHub Pages
-- Animations douces et respect de `prefers-reduced-motion`
-- Zones cliquables responsives (44px+)
+- Utilisation de git via VS Code, des GitHub Actions et d'une GitHub Page
+- Utilisation d'un assitant IA pour la mise en place du projet
