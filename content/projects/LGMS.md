@@ -1,9 +1,8 @@
 ---
 title: "Projet final formation JEDHA"
 date: 2025-08-22
-stack: ["GNS3", "Ansible", "Trivy", Nginx", "Postgresql" ]
-links:
-  présentation: ../LGMS/LGMS_DemoDay_Final.pdf
+stack: ["GNS3", "Ansible", "Trivy", "Nginx", "Postgresql" ]
+[Présentation](../LGMS/LGMS_DemoDay_Final.pdf)
 summary: "Projet final de formation : infrastructure sécurisée"
 tags: ["projet final", "portfolio"]
 ---
