@@ -75,7 +75,7 @@ function FrontmatterLinks({ links, slug }) {
         return (
           <a
             key={key}
-            className="underline decoration-dashed underline-offset-2 hover:decoration-solid"
+            className="underline decoration-2 underline-offset-2 decoration-stone-400/60 dark:decoration-stone-500/60 hover:decoration-stone-400 dark:hover:decoration-stone-400"
             href={url}
             target={external ? '_blank' : undefined}
             rel={external ? 'noreferrer' : undefined}

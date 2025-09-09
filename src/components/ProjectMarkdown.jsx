@@ -26,7 +26,7 @@ export default function ProjectMarkdown({ slug, markdown }) {
               href={url}
               target={isExternal ? '_blank' : undefined}
               rel={isExternal ? 'noreferrer' : undefined}
-              className="underline decoration-dashed underline-offset-2 hover:decoration-solid"
+              className="underline decoration-2 underline-offset-2 decoration-stone-400/60 dark:decoration-stone-500/60 hover:decoration-stone-400 dark:hover:decoration-stone-400"
               {...props}
             />
           )
