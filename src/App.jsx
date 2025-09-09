@@ -188,7 +188,7 @@ function PlacePage() {
 
 function ProjectsPage() {
   return (
-    <PageShell title="Château" subtitle="Liste de projets">
+    <PageShell title="Château" subtitle="Liste de projets (en construction)">
       <div className="grid md:grid-cols-2 gap-4 !prose-none">
         {projects.map((p) => (
           <article key={p.slug} className="rounded-xl border border-stone-200 dark:border-stone-800 p-4">
