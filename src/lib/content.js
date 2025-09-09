@@ -57,3 +57,41 @@ const parsedPages = Object.fromEntries(
 export function getPage(slug) {
   return parsedPages[slug] || { frontmatter: {}, html: '<p>Page non trouvée.</p>' }
 }
+
+// Toutes les pièces jointes possibles (PDF/vidéo/images/zip…)
+export const PROJECT_ASSETS = import.meta.glob(
+  '/content/projects/**/*.{pdf,mp4,webm,zip,png,jpg,jpeg,gif,webp}',
+  { eager: true, query: '?url', import: 'default' }
+)
+
+// Joindre et normaliser un chemin type URL (gère ./ et ../)
+function joinNormalize(base, rel) {
+  const parts = (base.replace(/\/+$/, '') + '/' + rel).split('/')
+  const out = []
+  for (const p of parts) {
+    if (!p || p === '.') continue
+    if (p === '..') out.pop()
+    else out.push(p)
+  }
+  return '/' + out.join('/')
+}
+
+/**
+ * Resolve des liens relatifs du markdown projet
+ * - Cas 1: projet dans un DOSSIER: /content/projects/<slug>/index.md  → "./file.ext"
+ * - Cas 2: projet en FICHIER:      /content/projects/<slug>.md        → "../<FOLDER>/file.ext"
+ */
+export function resolveProjectLink(slug, href) {
+  if (!href || /^https?:\/\//i.test(href) || href.startsWith('#')) return href
+
+  // 1) suppose dossier "/content/projects/<slug>/**"
+  const key1 = joinNormalize(`/content/projects/${slug}/`, href)
+  if (PROJECT_ASSETS[key1]) return PROJECT_ASSETS[key1]
+
+  // 2) permet "../LGMS/file.pdf" depuis "/content/projects/<slug>.md"
+  const key2 = joinNormalize('/content/projects/', href)
+  if (PROJECT_ASSETS[key2]) return PROJECT_ASSETS[key2]
+
+  // fallback: laisse le lien tel quel (utile pendant l’édition)
+  return href
+}

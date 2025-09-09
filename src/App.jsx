@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { projects, getPage } from './lib/content.js'
+import ProjectMarkdown from '../components/ProjectMarkdown'
 
 const BUILDINGS = [
   { id: 'chateau',  label: 'Château (Projets)',            x: 25, y: 39, href: '#/chateau',  icon: 'castle',   desc: 'Mes projets personnels…' },
@@ -199,7 +200,10 @@ function ProjectsPage() {
                 <span key={t} className="rounded-full px-2 py-1 bg-stone-100 dark:bg-stone-800">{t}</span>
               ))}
             </div>
-            <div className="text-sm mt-4" dangerouslySetInnerHTML={{ __html: p.html }} />
+            <div className="text-sm mt-4 prose prose-stone dark:prose-invert max-w-none">
+              <ProjectMarkdown slug={p.slug} markdown={p.body || p.raw || ''} />
+            </div>
+
             {p.frontmatter?.links && (
               <div className="mt-3 text-sm flex gap-4">
                 {p.frontmatter.links.demo && <a className="underline" href={p.frontmatter.links.demo} target="_blank" rel="noreferrer">Démo</a>}
