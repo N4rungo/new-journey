@@ -203,13 +203,14 @@ function ProjectsPage() {
             <div className="text-sm mt-4 prose prose-stone dark:prose-invert max-w-none">
               <ProjectMarkdown slug={p.slug} markdown={p.body || p.raw || ''} />
             </div>
-
+{/* 
             {p.frontmatter?.links && (
               <div className="mt-3 text-sm flex gap-4">
                 {p.frontmatter.links.demo && <a className="underline" href={p.frontmatter.links.demo} target="_blank" rel="noreferrer">Démo</a>}
                 {p.frontmatter.links.github && <a className="underline" href={p.frontmatter.links.github} target="_blank" rel="noreferrer">GitHub</a>}
               </div>
             )}
+             */}
           </article>
         ))}
       </div>
