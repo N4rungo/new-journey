@@ -2,6 +2,7 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
+import remarkGfm from 'remark-gfm'
 import { resolveProjectLink } from '../lib/content' // ← tu l'as ajouté dans content.js
 
 /**
@@ -14,6 +15,7 @@ import { resolveProjectLink } from '../lib/content' // ← tu l'as ajouté dans 
 export default function ProjectMarkdown({ slug, markdown }) {
   return (
     <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeRaw]}
       components={{
         a({ node, href = '', ...props }) {

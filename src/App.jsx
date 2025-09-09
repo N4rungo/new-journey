@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { projects, getPage } from './lib/content.js'
 import ProjectMarkdown from './components/ProjectMarkdown'
+import { resolveProjectLink } from '../lib/content'
 
 const BUILDINGS = [
   { id: 'chateau',  label: 'Château (Projets)',            x: 25, y: 39, href: '#/chateau',  icon: 'castle',   desc: 'Mes projets personnels…' },
@@ -53,6 +54,38 @@ function getDisplayRect(containerW, containerH, imgW, imgH, mode = 'fit') {
   const x = (containerW - w) / 2;
   const y = (containerH - h) / 2;
   return { x, y, w, h };
+}
+
+// Helper pour afficher tous les liens du front-matter (clé -> label)
+function FrontmatterLinks({ links, slug }) {
+  if (!links) return null
+  const entries = Object.entries(links)
+  if (!entries.length) return null
+  return (
+    <div className="mt-3 text-sm flex flex-wrap gap-4">
+      {entries.map(([key, href]) => {
+        const url = resolveProjectLink(slug, String(href))
+        const external = /^https?:\/\//i.test(url)
+        const label = key
+          .replace(/_/g, ' ')
+          .replace(/\b\w/g, c => c.toUpperCase())
+          .replace('Presentation', 'Présentation')
+          .replace('Cv', 'CV')
+
+        return (
+          <a
+            key={key}
+            className="underline decoration-dashed underline-offset-2 hover:decoration-solid"
+            href={url}
+            target={external ? '_blank' : undefined}
+            rel={external ? 'noreferrer' : undefined}
+          >
+            {label}
+          </a>
+        )
+      })}
+    </div>
+  )
 }
 
 const usePrefersReducedMotion = () => {
@@ -194,16 +227,24 @@ function ProjectsPage() {
         {projects.map((p) => (
           <article key={p.slug} className="rounded-xl border border-stone-200 dark:border-stone-800 p-4">
             <h3 className="font-semibold text-lg">{p.frontmatter?.title || p.slug}</h3>
-            {p.frontmatter?.summary && <p className="text-sm text-stone-600 dark:text-stone-400 mt-1">{p.frontmatter.summary}</p>}
+            {p.frontmatter?.summary && (
+              <p className="text-sm text-stone-600 dark:text-stone-400 mt-1">{p.frontmatter.summary}</p>
+            )}
+
             <div className="mt-3 flex flex-wrap gap-2 text-xs">
               {(p.frontmatter?.stack || []).map((t) => (
                 <span key={t} className="rounded-full px-2 py-1 bg-stone-100 dark:bg-stone-800">{t}</span>
               ))}
             </div>
+
+            
             <div className="text-sm mt-4 prose prose-stone dark:prose-invert max-w-none">
               <ProjectMarkdown slug={p.slug} markdown={p.body || p.raw || ''} />
             </div>
-{/* 
+            
+            <FrontmatterLinks links={p.frontmatter?.links} slug={p.slug} />
+            
+            {/* 
             {p.frontmatter?.links && (
               <div className="mt-3 text-sm flex gap-4">
                 {p.frontmatter.links.demo && <a className="underline" href={p.frontmatter.links.demo} target="_blank" rel="noreferrer">Démo</a>}

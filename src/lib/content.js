@@ -17,8 +17,10 @@ function parseFrontMatter(raw) {
     }
     body = raw.slice(m[0].length)
   }
+  /* const html = marked.parse(body)
+  return { frontmatter, html } */
   const html = marked.parse(body)
-  return { frontmatter, html }
+  return { frontmatter, body, html }  // ← on expose aussi le body brut
 }
 
 // ✅ Collections chargées à build-time (arguments littéraux)
@@ -30,9 +32,11 @@ const projectsMap = import.meta.glob('/content/projects/*.md', {
 
 export const projects = Object.entries(projectsMap)
   .map(([path, raw]) => {
-    const { frontmatter, html } = parseFrontMatter(raw)
+    /* const { frontmatter, html } = parseFrontMatter(raw) */
+    const { frontmatter, body, html } = parseFrontMatter(raw)
     const slug = path.split('/').pop().replace(/\.md$/, '')
-    return { slug, frontmatter, html }
+    /* return { slug, frontmatter, html } */
+    return { slug, frontmatter, body, html } // ← ajoute body
   })
   .sort((a, b) => {
     const da = a.frontmatter?.date ? new Date(a.frontmatter.date).getTime() : 0
