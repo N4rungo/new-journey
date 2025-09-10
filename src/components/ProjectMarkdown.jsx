@@ -1,5 +1,4 @@
 // src/components/ProjectMarkdown.jsx
-import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
@@ -18,7 +17,7 @@ export default function ProjectMarkdown({ slug, markdown }) {
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeRaw]}
       components={{
-        a({ node, href = '', ...props }) {
+        a({ href = '', ...props }) {
           const url = resolveProjectLink(slug, href)
           const isExternal = /^https?:\/\//i.test(url)
           return (
@@ -31,10 +30,17 @@ export default function ProjectMarkdown({ slug, markdown }) {
             />
           )
         },
-        img({ node, src = '', alt = '', ...props }) {
+        img({ src = '', alt = '', ...props }) {
           const url = resolveProjectLink(slug, src)
-          return <img src={url} alt={alt} className="rounded-lg border border-stone-200 dark:border-stone-700 max-w-full h-auto" {...props} />
-        }
+          return (
+            <img
+              src={url}
+              alt={alt}
+              className="rounded-lg border border-stone-200 dark:border-stone-700 max-w-full h-auto"
+              {...props}
+            />
+          )
+        },
       }}
     >
       {markdown}

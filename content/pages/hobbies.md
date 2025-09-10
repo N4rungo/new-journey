@@ -1,10 +1,13 @@
 # Passe-temps
 
 ## 🎮 Jeux vidéo
-RPG, roguelikes, indés. Derniers coups de cœur : *Hades*, *Ori*, *Hollow Knight*.
+
+RPG, roguelikes, indés. Derniers coups de cœur : _Hades_, _Ori_, _Hollow Knight_.
 
 ## 🎲 Jeux de société
-Deck-building, coop, réflexion. Favoris : *The Crew*, *Très Futé*, *Terraforming Mars*.
+
+Deck-building, coop, réflexion. Favoris : _The Crew_, _Très Futé_, _Terraforming Mars_.
 
 ## 📚 Lecture
-Héroic Fantasy — *Le Seigneur des Anneaux*, *La Harpe des 4 saisons*, *Un livre dont vous êtes le héros*.
+
+Héroic Fantasy — _Le Seigneur des Anneaux_, _La Harpe des 4 saisons_, _Un livre dont vous êtes le héros_.

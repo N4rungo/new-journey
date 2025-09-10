@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirection…</title>
+    <meta name="robots" content="noindex" />
+  </head>
+  <body>
+    <noscript>
+      Cette appli nécessite JavaScript. <a href="/new-journey/">Retour</a>
+    </noscript>
+    <script>
+      (function () {
+        var base = '/new-journey'; // ← remplace si ton repo changebase: process.env.VITE_BASE || '/',
+        var path = location.pathname.replace(base, '');
+        var target = base + '/#' + (path.startsWith('/') ? path : '/' + path) + location.search + location.hash;
+        location.replace(target);
+      })();
+    </script>
+  </body>
+</html>

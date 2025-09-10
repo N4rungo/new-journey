@@ -20,7 +20,7 @@ function parseFrontMatter(raw) {
   /* const html = marked.parse(body)
   return { frontmatter, html } */
   const html = marked.parse(body)
-  return { frontmatter, body, html }  // ← on expose aussi le body brut
+  return { frontmatter, body, html } // ← on expose aussi le body brut
 }
 
 // ✅ Collections chargées à build-time (arguments littéraux)
@@ -30,6 +30,15 @@ const projectsMap = import.meta.glob('/content/projects/*.md', {
   import: 'default',
 })
 
+function numOr(x, fallback) {
+  const n = Number(x)
+  return Number.isFinite(n) ? n : fallback
+}
+function dateMs(x) {
+  const t = Date.parse(x)
+  return Number.isFinite(t) ? t : 0
+}
+
 export const projects = Object.entries(projectsMap)
   .map(([path, raw]) => {
     const { frontmatter, body, html } = parseFrontMatter(raw)
@@ -37,7 +46,7 @@ export const projects = Object.entries(projectsMap)
     return { slug, frontmatter, body, html }
   })
   // masquer ceux avec hidden: true
-  .filter(p => !p.frontmatter?.hidden)
+  .filter((p) => !p.frontmatter?.hidden)
 
   .sort((a, b) => {
     // 1) pinned d'abord
@@ -69,7 +78,7 @@ const parsedPages = Object.fromEntries(
   Object.entries(pagesMap).map(([path, raw]) => {
     const slug = path.split('/').pop().replace(/\.md$/, '') // 'cv', 'training', 'hobbies'
     return [slug, parseFrontMatter(raw)]
-  })
+  }),
 )
 
 export function getPage(slug) {
@@ -79,7 +88,7 @@ export function getPage(slug) {
 // Toutes les pièces jointes possibles (PDF/vidéo/images/zip…)
 export const PROJECT_ASSETS = import.meta.glob(
   '/content/projects/**/*.{pdf,mp4,webm,zip,png,jpg,jpeg,gif,webp}',
-  { eager: true, query: '?url', import: 'default' }
+  { eager: true, query: '?url', import: 'default' },
 )
 
 // Joindre et normaliser un chemin type URL (gère ./ et ../)
