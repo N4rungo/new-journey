@@ -39,7 +39,7 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%) scale(1.7);
+  transform: translate(-50%, -50%) scale(1);
   pointer-events: none;
   width: 80px;
   height: 80px;
@@ -89,6 +89,8 @@ body {
 
 .pixel-icon{
   width:64px;height:64px;display:block;pointer-events:none;
+  transform: translate(-50%, -50%) scale(0.7);
+  transform-origin: center;
   image-rendering: pixelated; /* rendu net en petit */
   filter:
     drop-shadow(0 1px 0 rgba(0,0,0,.35))
