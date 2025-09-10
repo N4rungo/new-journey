@@ -15,47 +15,6 @@ const BUILDINGS = [
 ];
 
 
-// Mesure la taille d'un élément (pour recalculer le rectangle d'affichage)
-function useElementSize() {
-  const ref = React.useRef(null);
-  const [size, setSize] = React.useState({ w: 0, h: 0 });
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const ro = new ResizeObserver(() => {
-      setSize({ w: el.clientWidth, h: el.clientHeight });
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-  return [ref, size];
-}
-
-// Calcule le rectangle réellement occupé par l’image dans le conteneur (fit/contain vs fill/cover)
-function getDisplayRect(containerW, containerH, imgW, imgH, mode = 'fit') {
-  const imgAspect = imgW / imgH;
-  const contAspect = containerW / containerH;
-  let w, h;
-  if (mode === 'fill') {
-    // cover
-    if (contAspect > imgAspect) {
-      w = containerW; h = containerW / imgAspect;
-    } else {
-      h = containerH; w = containerH * imgAspect;
-    }
-  } else {
-    // fit (contain)
-    if (contAspect > imgAspect) {
-      h = containerH; w = containerH * imgAspect;
-    } else {
-      w = containerW; h = containerW / imgAspect;
-    }
-  }
-  const x = (containerW - w) / 2;
-  const y = (containerH - h) / 2;
-  return { x, y, w, h };
-}
-
 // Helper pour afficher tous les liens du front-matter (clé -> label)
 function FrontmatterLinks({ links, slug }) {
   if (!links) return null
@@ -75,7 +34,7 @@ function FrontmatterLinks({ links, slug }) {
         return (
           <a
             key={key}
-            className="underline decoration-2 underline-offset-2 decoration-stone-400/60 dark:decoration-stone-500/60 hover:decoration-stone-400 dark:hover:decoration-stone-400"
+            className="link-solid"
             href={url}
             target={external ? '_blank' : undefined}
             rel={external ? 'noreferrer' : undefined}
@@ -86,18 +45,6 @@ function FrontmatterLinks({ links, slug }) {
       })}
     </div>
   )
-}
-
-const usePrefersReducedMotion = () => {
-  const [reduced, setReduced] = useState(false)
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const onChange = () => setReduced(!!mq.matches)
-    onChange()
-    mq.addEventListener?.('change', onChange)
-    return () => mq.removeEventListener?.('change', onChange)
-  }, [])
-  return reduced
 }
 
 const useHashRoute = () => {

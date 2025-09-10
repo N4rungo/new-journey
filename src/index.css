@@ -9,6 +9,13 @@ html, body, #root { height: 100%; }
 body { margin: 0; }
 .pixelated { image-rendering: pixelated; image-rendering: crisp-edges; }
 
+/* Style des liens */
+@layer components {
+  .link-solid { @apply underline decoration-2 underline-offset-2 decoration-stone-400/60 dark:decoration-stone-500/60 hover:decoration-stone-400 dark:hover:decoration-stone-400; }
+  .link-none  { @apply no-underline hover:underline underline-offset-2; }
+}
+
+
 /* === Halo animé (HD only, 32x32, 6 frames) ======================= */
 .halo {
   position: absolute; left: 50%; top: 50%;
