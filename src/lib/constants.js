@@ -50,5 +50,16 @@ export const BUILDINGS = [
     emoji: '📜',
     desc: 'CV imprimable.',
   },
+  {
+    id: 'grotte',
+    label: 'Knowhere',
+    x: 17,
+    y: 82,
+    href: '#/grotte',
+    icon: null,
+    emoji: '🌀',
+    desc: 'Knowhere',
+    hidden: true
+  },
   // { id: 'biblio', label: 'Bibliothèque', x: 58, y: 60, href: '#/biblio', icon: 'book', emoji: '📚', desc: 'Lectures, notes.' },
 ]

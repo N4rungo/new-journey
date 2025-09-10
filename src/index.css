@@ -41,8 +41,8 @@ body {
   top: 50%;
   transform: translate(-50%, -50%) scale(2.3);
   pointer-events: none;
-  width: 32px;
-  height: 32px;
+  width: 80px;
+  height: 80px;
   background-repeat: no-repeat;
   background-size: auto 100%;
   animation: halo-anim 900ms steps(6) infinite;
@@ -86,6 +86,15 @@ body {
   image-rendering: pixelated;
   filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.5)) drop-shadow(0 0 2px rgba(0, 0, 0, 0.25));
 }
+
+.pixel-icon{
+  width:64px;height:64px;display:block;pointer-events:none;
+  image-rendering: pixelated; /* rendu net en petit */
+  filter:
+    drop-shadow(0 1px 0 rgba(0,0,0,.35))
+    drop-shadow(0 2px 2px rgba(0,0,0,.15));
+}
+
 
 /* === Mapping spritesheet (ligne d’icônes 32x32) =================== */
 .ico {
@@ -142,7 +151,6 @@ a:focus-visible {
 }
 
 @layer utilities {
-
   /* Très léger contour pour lisibilité sur fonds chargés */
   .title-outline {
     text-shadow:

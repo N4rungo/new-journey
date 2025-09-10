@@ -5,7 +5,7 @@ export default function PlacePage() {
   return (
     <PageShell title="Place du village" subtitle="Accédez au contenu du site">
       <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 !prose-none">
-        {BUILDINGS.map((b) => (
+        {BUILDINGS.filter(b => !b.hidden).map((b) => (
           <li
             key={b.id}
             className="rounded-xl border border-stone-200 dark:border-stone-800 p-4 hover:shadow"

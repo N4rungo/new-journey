@@ -1,4 +1,5 @@
 import { BUILDINGS } from '../lib/constants'
+import { iconUrl } from '../lib/icons'
 
 export default function VillageMap() {
   // -- état local -------------------------------------------------------------
@@ -42,16 +43,21 @@ export default function VillageMap() {
               className="marker group relative block rounded-xl outline-none focus-visible:ring-4 ring-amber-500/50"
               aria-label={b.label}
               title={b.label}
-              style={{ width: 56, height: 56 }} // hitbox confortable
+              style={{ width: 80, height: 80 }}
             >
               {/* halo animé (anneau) */}
               <span className="halo" style={{ backgroundImage: `url(${haloHD})` }} aria-hidden />
               {/* icône pixel (HD, agrandie) */}
-              <span
-                className={`icon-pixel ico ico-${b.icon}`}
-                style={{ backgroundImage: `url(${icons})` }}
-                aria-hidden
-              />
+              {b.icon && (
+                <img
+                  src={iconUrl(b.icon)}
+                  alt=""
+                  width="64"
+                  height="64"
+                  className="pixel-icon"
+                  aria-hidden
+                />
+              )}
             </a>
           </li>
         ))}
