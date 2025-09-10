@@ -51,6 +51,16 @@ export const BUILDINGS = [
     desc: 'CV imprimable.',
   },
   {
+    id: 'forge',
+    label: 'Hard Work',
+    x: 38,
+    y: 46,
+    href: '#/forge',
+    icon: 'forge',
+    emoji: '⚒️',
+    desc: 'Travail en cours',
+  },
+  {
     id: 'grotte',
     label: 'Knowhere',
     x: 14,

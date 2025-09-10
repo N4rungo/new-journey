@@ -7,6 +7,7 @@ export function iconUrl(key) {
     tavern:   'tavern-64.png',
     plaza:    'plaza-64.png',
     archives: 'archives-64.png',
+    forge:    'forge-64.png'
   }
   const name = map[key] || 'plaza-64.png'
   return `${base}icons/${name}`
