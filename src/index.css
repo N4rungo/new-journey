@@ -7,14 +7,17 @@
 :root {
   color-scheme: light dark;
 }
+
 html,
 body,
 #root {
   height: 100%;
 }
+
 body {
   margin: 0;
 }
+
 .pixelated {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
@@ -25,6 +28,7 @@ body {
   .link-solid {
     @apply underline decoration-2 underline-offset-2 decoration-stone-400/60 dark:decoration-stone-500/60 hover:decoration-stone-400 dark:hover:decoration-stone-400;
   }
+
   .link-none {
     @apply no-underline hover:underline underline-offset-2;
   }
@@ -45,10 +49,12 @@ body {
   opacity: 0.9;
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.45));
 }
+
 @keyframes halo-anim {
   from {
     background-position-x: 0;
   }
+
   to {
     background-position-x: -600%;
   }
@@ -86,31 +92,37 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
 }
+
 .ico-castle {
   background-position: 0px 0px;
   width: 32px;
   height: 32px;
 }
+
 .ico-barracks {
   background-position: -32px 0px;
   width: 32px;
   height: 32px;
 }
+
 .ico-tavern {
   background-position: -64px 0px;
   width: 32px;
   height: 32px;
 }
+
 .ico-plaza {
   background-position: -96px 0px;
   width: 32px;
   height: 32px;
 }
+
 .ico-archives {
   background-position: -128px 0px;
   width: 32px;
   height: 32px;
 }
+
 .ico-book {
   background-position: -160px 0px;
   width: 32px;
@@ -130,6 +142,7 @@ a:focus-visible {
 }
 
 @layer utilities {
+
   /* Très léger contour pour lisibilité sur fonds chargés */
   .title-outline {
     text-shadow:

@@ -1,21 +1,26 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <title>Redirection…</title>
     <meta name="robots" content="noindex" />
-  </head>
-  <body>
+</head>
+
+<body>
     <noscript>
-      Cette appli nécessite JavaScript. <a href="/new-journey/">Retour</a>
+        Cette appli nécessite JavaScript. <a href="/new-journey/">Retour</a>
     </noscript>
     <script>
-      (function () {
-        var base = '/new-journey'; // ← remplace si ton repo changebase: process.env.VITE_BASE || '/',
-        var path = location.pathname.replace(base, '');
-        var target = base + '/#' + (path.startsWith('/') ? path : '/' + path) + location.search + location.hash;
-        location.replace(target);
-      })();
+        (function () {
+            // Ex: /new-journey/foobar -> base="/new-journey"
+            var parts = location.pathname.split('/').filter(Boolean)
+            var base = parts.length ? '/' + parts[0] : ''   // user pages -> '', project pages -> '/repo'
+            var rel = location.pathname.slice(base.length)
+            var target = base + '/#' + (rel.startsWith('/') ? rel : '/' + rel) + location.search + location.hash
+            location.replace(target)
+        })();
     </script>
-  </body>
+</body>
+
 </html>
