@@ -27,6 +27,8 @@ jobs:
           cache: 'npm'
       - name: Install deps
         run: npm ci || npm install
+      - name: lint
+        run: npm run lint
       - name: Build
         env:
           VITE_BASE: "/${{ github.event.repository.name }}/"
