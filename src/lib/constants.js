@@ -53,8 +53,8 @@ export const BUILDINGS = [
   {
     id: 'grotte',
     label: 'Knowhere',
-    x: 15,
-    y: 84,
+    x: 13,
+    y: 86,
     href: '#/grotte',
     icon: null,
     emoji: '🌀',
