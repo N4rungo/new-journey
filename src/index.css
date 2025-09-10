@@ -88,6 +88,9 @@ body {
 }
 
 .pixel-icon{
+  position: absolute;
+  left: 50%;
+  top: 50%;
   width:64px;height:64px;display:block;pointer-events:none;
   transform: translate(-50%, -50%) scale(0.7);
   transform-origin: center;
