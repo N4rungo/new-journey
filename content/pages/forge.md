@@ -5,7 +5,7 @@
       src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=4898114"
       title="Badge TryHackMe"
       class="block w-full"
-      style="height:90px;border:0;"
+      style="width:460px;height:90px;border:0;"
       loading="lazy"
       referrerpolicy="no-referrer">
     </iframe>
