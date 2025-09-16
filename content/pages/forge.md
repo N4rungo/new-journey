@@ -2,9 +2,9 @@
 <iframe
     title="Profil THM"
     src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=4898114" 
-    style='border:none;'
-    class="block w-full border-0"
-    width="800" height="450" loading="lazy"
+    style='border:none;width=100%;height=100px;background:transparent'    
+    loading="lazy"
+    allowtransparency="true"
 ></iframe>
 
 ### HTB
