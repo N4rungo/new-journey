@@ -10,6 +10,7 @@ import PlacePage from './pages/PlacePage'
 import CVPage from './pages/CVPage'
 import TrainingPage from './pages/TrainingPage'
 import HobbiesPage from './pages/HobbiesPage'
+import ForgePage from './pages/ForgePage'
 import { useHashRoute } from './lib/router'
 
 function Welcome() {
@@ -52,6 +53,8 @@ export default function App() {
         return <HobbiesPage />
       case '/cv':
         return <CVPage />
+      case '/forge':
+        return <ForgePage />
       default:
         return (
           <PageShell title="Page introuvable" subtitle="La destination demandée n'existe pas (404)">

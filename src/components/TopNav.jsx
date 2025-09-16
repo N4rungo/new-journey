@@ -20,6 +20,9 @@ export default function TopNav() {
           <a href="#/auberge" className="hover:underline">
             Auberge
           </a>
+          <a href="#/forge" className="hover:underline">
+            Forge
+          </a>
           <a href="#/cv" className="hover:underline">
             CV
           </a>
