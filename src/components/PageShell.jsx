@@ -1,7 +1,7 @@
 export default function PageShell({ title, subtitle, children }) {
   return (
     <div className="max-w-5xl mx-auto px-4 py-6">
-      <h1 className="font-hero text-4xl md:text-5xl tracking-wide title-outline">{title}</h1>
+      <h1 className="font-hero text-5xl md:text-6xl tracking-wide title-outline">{title}</h1>
       {subtitle && (
         <p className="font-medieval text-stone-600 dark:text-stone-300 mt-1">{subtitle}</p>
       )}

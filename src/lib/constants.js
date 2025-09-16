@@ -52,7 +52,7 @@ export const BUILDINGS = [
   },
   {
     id: 'forge',
-    label: 'Forge',
+    label: 'Forge (Hard Work)',
     x: 38,
     y: 46,
     href: '#/forge',

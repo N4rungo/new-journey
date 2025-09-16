@@ -16,7 +16,7 @@ import { useHashRoute } from './lib/router'
 function Welcome() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-6 text-center">
-      <h1 className="font-hero text-4xl md:text-5xl tracking-wide title-outline">
+      <h1 className="font-hero text-5xl md:text-6xl tracking-wide title-outline">
         Bienvenue dans mon village
       </h1>
       <p className="font-medieval mt-1 text-stone-600 dark:text-stone-300">
