@@ -1,10 +1,14 @@
 ### THM
-<iframe
-    title="Profil THM"
-    src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=4898114" 
-    style='border:none;width=327px;height=84px;background:transparent'    
+<div class="not-prose my-4 rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-white/95 shadow overflow-hidden">
+  <iframe
+    src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=4898114"
+    title="TryHackMe badge"
+    class="block w-full"
+    style="width:100%;height:420px;border:0;"
     loading="lazy"
-    allowtransparency="true"
-></iframe>
+    referrerpolicy="no-referrer">
+  </iframe>
+</div>
+
 
 ### HTB
