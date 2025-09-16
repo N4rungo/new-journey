@@ -1,14 +1,17 @@
 ### THM
-<div class="not-prose my-4 rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-white/95 shadow overflow-hidden">
-  <iframe
-    src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=4898114"
-    title="TryHackMe badge"
-    class="block w-full"
-    style="width:327px;height:84px;border:0;"
-    loading="lazy"
-    referrerpolicy="no-referrer">
-  </iframe>
+<div class="not-prose my-6">
+  <div class="mx-auto max-w-[800px] bg-white rounded-xl shadow p-4">
+    <iframe
+      src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=4898114"
+      title="Badge TryHackMe"
+      class="block w-full"
+      style="height:90px;border:0;"
+      loading="lazy"
+      referrerpolicy="no-referrer">
+    </iframe>
+  </div>
 </div>
+
 
 
 ### HTB
