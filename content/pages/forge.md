@@ -4,7 +4,7 @@
     src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=4898114"
     title="TryHackMe badge"
     class="block w-full"
-    style="width:100%;height:420px;border:0;"
+    style="width:327px;height:84px;border:0;"
     loading="lazy"
     referrerpolicy="no-referrer">
   </iframe>
