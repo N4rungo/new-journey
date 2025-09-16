@@ -35,9 +35,8 @@ export default function App() {
       case '/':
         return (
           <main>
-            {/* Texte d’intro centré */}
             <Welcome />
-            {/* Carte HD-only : le composant VillageMap gère son centrage + aspect 16:9 */}
+            {/* Carte du village */}
             <section className="px-4">
               <VillageMap />
             </section>
