@@ -1,18 +1,18 @@
-# Matthieu BORIE
+## Matthieu BORIE
 
 📍 Région Parisienne / Remote | 📧 boriematthieu@gmail.com | 🔗 [LinkedIn](https://www.linkedin.com/in/mborie1337) | 🔗 [GitHub](https://n4rungo.github.io/new-journey/)
 
 🎯 **De l’Ingénierie Réseaux & QA vers la Cybersécurité | Blue Team – DevSecOps - Architecte Réseaux Sécurisés**
 
-## 🛠️ Compétences
+### 🛠️ Compétences
 
-- **Réseaux & Sécurité** : DMZ, VLAN, VPN, pfSense, Fortinet, Cisco ASA, Wazuh, Zscaler, Wireshark, tcpdump, iptables
+- **Réseaux & Sécurité** : Cisco, Fortinet, Netgear, pfSense, DMZ, VLAN, VPN, Wazuh, Zscaler, Wireshark, tcpdump, iptables
 - **Cloud & Virtualisation** : AWS, Azure, VmWare ESXi, KVM, VirtualBox, Docker, Docker Swarm
 - **DevSecOps** & Automatisation : GitHub Actions, Ansible, pytest, Trivy, Python, Bash, VBA
 - **Systèmes** : Linux (Debian, CentOS), Windows Server, AD/LDAP, PostgreSQL
 - **Pentest** : nmap, Burp Suite, Hydra, Metasploit, gobuster, sqlmap, GTFOBins
 
-## 💼 Expériences
+### 💼 Expériences
 
 - **Senior QA Software Engineer – Extreme Networks (2021–2024)**
   - **QA Lead** dans une équipe internationale de **15 personnes**
@@ -33,7 +33,7 @@
   - **Rédaction de plans de tests** et rapports de bugs  
     **++** _Création d’un outil Excel/VBA pour suivi de couverture de tests_
 
-## 🎓 Formations & Projets 🧪
+### 🎓 Formations & Projets 🧪
 
 - **Cybersecurity Fullstack – JEDHA (2025 – 3 mois intensifs)**
   - **Architecture sécurisée** & pipeline CI/CD
@@ -53,18 +53,18 @@
 
 - **Master Informatique et Réseaux – Université Paris 6 (2011)**
 
-## 🗣️ Langues
+### 🗣️ Langues
 
 - Français : langue maternelle
 - Anglais : professionnel (niveau B2/C1)
 
-## 🧠 Soft Skills
+### 🧠 Soft Skills
 
 - 💭 Rigueur, esprit d’analyse
 - 🤝 Communication inter-équipes, pédagogie
 - 🎯 Esprit collectif, curiosité technique
 
-## 🎯 Divers
+### 🎯 Divers
 
 - 🤿 Certificat N1 plongée, permis moto 🏍️
 - 🎭 Théâtre amateur, danse rock 🕺
