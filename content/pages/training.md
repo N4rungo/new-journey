@@ -1,4 +1,4 @@
-# 🎓 Formations
+## 🎓 Formations
 
 - **Cybersecurity Fullstack – JEDHA (2025 – 3 mois intensifs)**
   - **Architecture sécurisée** & pipeline CI/CD
@@ -18,7 +18,7 @@
 
 - **Master Informatique et Réseaux – Université Paris 6 (2011)**
 
-## 🛠️ Compétences
+### 🛠️ Compétences
 
 - **Réseaux & Sécurité** : DMZ, VLAN, VPN, pfSense, Fortinet, Cisco ASA, Wazuh, Zscaler, Wireshark, tcpdump, iptables
 - **Cloud & Virtualisation** : AWS, Azure, VmWare ESXi, KVM, VirtualBox, Docker, Docker Swarm
