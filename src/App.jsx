@@ -11,6 +11,8 @@ import CVPage from './pages/CVPage'
 import TrainingPage from './pages/TrainingPage'
 import HobbiesPage from './pages/HobbiesPage'
 import ForgePage from './pages/ForgePage'
+import NotFoundPage from './pages/NotFoundPage'
+
 import { useHashRoute } from './lib/router'
 
 function Welcome() {
@@ -55,13 +57,7 @@ export default function App() {
       case '/forge':
         return <ForgePage />
       default:
-        return (
-          <PageShell title="Page introuvable" subtitle="La destination demandée n'existe pas (404)">
-            <a className="link-solid" href="#/">
-              Retour à la carte
-            </a>
-          </PageShell>
-        )
+        return <NotFoundPage path={path} />
     }
   }, [path])
 

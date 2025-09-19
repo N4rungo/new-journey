@@ -17,12 +17,12 @@
       (function () {
         // Exemple: /new-journey/foo → base="/new-journey", rel="/foo"
         var parts = location.pathname.split('/').filter(Boolean);
-        var base  = parts.length ? '/' + parts[0] : '';  // "" pour user/org pages
-        var rel   = location.pathname.slice(base.length);
-        if (!rel.startsWith('/')) rel = '/' + rel;
+        var base  = parts.length ? '/' + parts[0] : '';
+        var rel   = location.pathname.slice(base.length) + location.search + location.hash;
+        //if (!rel.startsWith('/')) rel = '/' + rel;
 
         // Construit l’URL hash SPA : /<base>/#/rel + query + hash existants
-        var target = base + '/#' + rel + location.search + location.hash;
+        var target = base + '/#/404?to=' + encodeURIComponent(rel || '/');
 
         // Redirection immédiate
         location.replace(target);
