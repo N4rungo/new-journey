@@ -5,7 +5,7 @@ import { marked } from 'marked'
 marked.setOptions({ gfm: true, breaks: false })
 
 // Parse front-matter YAML (--- ... ---) + Markdown -> HTML
-function parseFrontMatter(raw) {
+export function parseFrontMatter(raw) {
   const m = raw.match(/^---\s*\n([\s\S]*?)\n---\s*\n?/) // front-matter au début du fichier
   let frontmatter = {}
   let body = raw
@@ -17,10 +17,8 @@ function parseFrontMatter(raw) {
     }
     body = raw.slice(m[0].length)
   }
-  /* const html = marked.parse(body)
-  return { frontmatter, html } */
   const html = marked.parse(body)
-  return { frontmatter, body, html } // ← on expose aussi le body brut
+  return { frontmatter, body, html }
 }
 
 // ✅ Collections chargées à build-time (arguments littéraux)
@@ -41,7 +39,7 @@ function dateMs(x) {
 
 export const projects = Object.entries(projectsMap)
   .map(([path, raw]) => {
-    const { frontmatter, body, html } = parseFrontMatter(raw)
+    const { frontmatter, html } = parseFrontMatter(raw)
     const slug = path.split('/').pop().replace(/\.md$/, '')
     return { slug, frontmatter, body, html }
   })
@@ -91,6 +89,11 @@ export const PROJECT_ASSETS = import.meta.glob(
   { eager: true, query: '?url', import: 'default' },
 )
 
+export const PAGES_ASSETS = import.meta.glob(
+  '/content/pages/**/*.{pdf,mp4,webm,zip,png,jpg,jpeg,gif,webp}',
+  { eager: true, query: '?url', import: 'default' }
+)
+
 // Joindre et normaliser un chemin type URL (gère ./ et ../)
 function joinNormalize(base, rel) {
   const parts = (base.replace(/\/+$/, '') + '/' + rel).split('/')
@@ -120,5 +123,18 @@ export function resolveProjectLink(slug, href) {
   if (PROJECT_ASSETS[key2]) return PROJECT_ASSETS[key2]
 
   // fallback: laisse le lien tel quel (utile pendant l’édition)
+  return href
+}
+
+export function resolvePageLink(slug, href) {
+  if (!href || /^https?:\/\//i.test(href) || href.startsWith('#')) return href
+  // page dans un dossier: /content/pages/<slug>/index.md → "./file.ext"
+  const key1 = joinNormalize(`/content/pages/${slug}/`, href)
+
+  if (PAGES_ASSETS[key1]) return PAGES_ASSETS[key1]
+  // page à la racine: /content/pages/<slug>.md → "../<folder>/file.ext"
+  const key2 = joinNormalize('/content/pages/', href)
+
+  if (PAGES_ASSETS[key2]) return PAGES_ASSETS[key2]
   return href
 }
