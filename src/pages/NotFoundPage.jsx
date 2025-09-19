@@ -6,7 +6,7 @@ export default function NotFoundPage({ path = '' }) {
   const to = params.get('to') || path
 
   return (
-    <PageShell title="Page introuvable" subtitle="La page que vous cherchez est dans un autre château (404)">
+    <PageShell title="Oups" subtitle="Désolé mais votre page est dans un autre château.">
       {to && (
         <p className="text-sm text-stone-600 dark:text-stone-400">
           Chemin demandé : <code>{decodeURIComponent(to)}</code>
