@@ -2,7 +2,7 @@
 title: 'Projet final formation JEDHA'
 date: 2025-08-22
 stack: ['GNS3', 'Ansible', 'Trivy', 'Nginx', 'Postgresql', 'Trello']
-order: 10
+order: 10 # plus petit = plus haut dans la liste
 pinned: true
 hidden: false
 summary: 'Projet final de formation : infrastructure sécurisée'
