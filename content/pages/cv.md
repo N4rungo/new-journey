@@ -1,4 +1,5 @@
-## Matthieu BORIE ([Télécharger mon CV](./cv/cv.pdf))
+## Matthieu BORIE 
+### [Télécharger mon CV](./cv/cv.pdf)
 
 📍 Région Parisienne / Remote | 📧 boriematthieu@gmail.com | 🔗 [LinkedIn](https://www.linkedin.com/in/mborie1337) | 🔗 [GitHub](https://n4rungo.github.io/new-journey/)
 
