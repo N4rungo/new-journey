@@ -1,24 +1,31 @@
 <!doctype html>
-<html>
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <title>Redirection…</title>
     <meta name="robots" content="noindex" />
     <meta name="color-scheme" content="light dark" />
-    <style>body{font:14px system-ui,Segoe UI,Roboto,Helvetica,Arial;color:#666;padding:24px}</style>
+    <style>
+      body{font:14px system-ui,Segoe UI,Roboto,Helvetica,Arial;color:#666;padding:24px}
+      code{background:#f4f4f5;padding:2px 4px;border-radius:4px}
+      @media (prefers-color-scheme: dark){ code{background:#27272a;color:#e5e7eb} }
+    </style>
   </head>
   <body>
-    <noscript>
-      Cette appli nécessite JavaScript. <a href="/">Retour</a>
-    </noscript>
+    Redirection vers l’application… <noscript>JavaScript requis.</noscript>
     <script>
       (function () {
-        // Déduit automatiquement la base: '' pour user/org pages, '/repo' pour project pages
-        var parts = location.pathname.split('/').filter(Boolean)
-        var base = parts.length ? '/' + parts[0] : ''
-        var rel  = location.pathname.slice(base.length)
-        var target = base + '/#' + (rel.startsWith('/') ? rel : '/' + rel) + location.search + location.hash
-        location.replace(target)
+        // Exemple: /new-journey/foo → base="/new-journey", rel="/foo"
+        var parts = location.pathname.split('/').filter(Boolean);
+        var base  = parts.length ? '/' + parts[0] : '';  // "" pour user/org pages
+        var rel   = location.pathname.slice(base.length);
+        if (!rel.startsWith('/')) rel = '/' + rel;
+
+        // Construit l’URL hash SPA : /<base>/#/rel + query + hash existants
+        var target = base + '/#' + rel + location.search + location.hash;
+
+        // Redirection immédiate
+        location.replace(target);
       })();
     </script>
   </body>
