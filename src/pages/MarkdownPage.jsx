@@ -11,7 +11,7 @@ import { getPage } from '../lib/content'
 } */
 
 import PageMarkdown from '../components/PageMarkdown'
-export function MarkdownPage({ title, slug }) {
+export default function MarkdownPage({ title, slug }) {
   const page = getPage(slug)
   return (
     <PageShell title={title}>
