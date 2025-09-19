@@ -39,7 +39,7 @@ function dateMs(x) {
 
 export const projects = Object.entries(projectsMap)
   .map(([path, raw]) => {
-    const { frontmatter, html } = parseFrontMatter(raw)
+    const { frontmatter, body, html } = parseFrontMatter(raw)
     const slug = path.split('/').pop().replace(/\.md$/, '')
     return { slug, frontmatter, body, html }
   })
