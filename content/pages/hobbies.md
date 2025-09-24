@@ -12,5 +12,5 @@ Jeux de cartes, coop, réflexion.
 
 ### 📚 Lecture
 
-Héroic Fantasy, mangas
+Héroic Fantasy, mangas.  
 ❤️ _Le Seigneur des Anneaux_, _La Harpe des 4 saisons_, _Un livre dont vous êtes le héros_.
