@@ -9,7 +9,7 @@
 
 - **Réseaux & Sécurité** : Cisco, Fortinet, Netgear, pfSense, DMZ, VLAN, VPN, Wazuh, Zabbix, Zscaler, Wireshark, tcpdump, iptables
 - **Cloud & Virtualisation** : AWS, Azure, VmWare ESXi, KVM, Proxmox, VirtualBox, Docker, Docker Swarm
-- **DevSecOps & Automatisation** : GitHub Actions, Ansible, pytest, Trivy, Python, Bash, VBA
+- **DevSecOps & Automatisation** : GitHub Actions, Ansible, Trivy, Python, pytest, Bash, API REST, VBA
 - **Systèmes** : Linux (Debian, CentOS), Windows Server, AD/LDAP, PostgreSQL
 - **Pentest** : nmap, Burp Suite, Hydra, Metasploit, gobuster, sqlmap, GTFOBins
 
